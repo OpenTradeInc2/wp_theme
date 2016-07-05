@@ -175,8 +175,8 @@ get_registered_nav_menus();
                     <tr>
                         <td width="1%" valign="top"><input type="checkbox" id="cbxTermsConditions" onclick="checkboxValidation()"></td>
                         <td valign="top">
-                            I ackknowledge that I have read and agree to the Grainger <b>Terms of Sale</b> and <b>Termo of Access</b>, and understand
-                                that information I submit will be used as described on this page and in the Grainger <b>Privacy Policy.</b>
+                            I acknowledge that I have read and agree to the Grainger <font style="font-weight: bold;">Terms of Sale</font> and <font style="font-weight: bold;">Terms of Access</font>, and understand
+                                that information I submit will be used as described on this page and in the Grainger <font style="font-weight: bold;">Privacy Policy.</font> 
                         </td>
                     </tr>
                 </table>
