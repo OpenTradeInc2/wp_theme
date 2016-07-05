@@ -185,6 +185,7 @@ function addPublicUserDistributor($userId, $distributorID){
     if($wpdb->check_connection()){
 
         $user = $wpdb->get_results("SELECT * FROM `".$wpdb->prefix."users` WHERE `ID` = ".$userId.";");
+
         $wpdb->query("INSERT INTO `ot_custom_distributor_user`
                                     (`distributor_user_username`,
                                     `distributor_user_fullname`,
@@ -218,9 +219,10 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
 
     //Asunto del email
     $subject='New Company Is Registered';
+    $subjectClient='Your Company Is Registered';
 
     //La dirección de envio del email es la de nuestro blog por lo que agregando este header podremos responder al remitente original
-    $headers = 'Reply-to: '.'Michael'.' '.'Lin'.' <'.'michael.lin@opentradeinc.com'.'>' . "\r\n";
+    $headers = 'Reply-to: '.'Michael'.' '.'Lin'.' <'.'michael.lin@Opentradeinc.com'.'>' . "\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
     $formatDate = date("Y-m-d h:i:s");
@@ -266,7 +268,15 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
                         <tr>
                             <th>Country:</th>
                             <td>'.$countryName.'</td>
-                        </tr> 
+                        </tr>                         
+                        <tr>
+                            <th>Name:</th>
+                            <td>'.$userName.'</td>
+                        </tr>
+                        <tr>
+                            <th>UserName:</th>
+                            <td>'.$userEmail.'</td>
+                        </tr>     
                     </table>                    
                     <br/>
                     <table>
@@ -282,11 +292,9 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
             <html>
                 <head>
                 <font FACE="impact" SIZE=6 COLOR="red">O</font><font FACE="impact" SIZE=6 COLOR="black">PENTRADE</font>
-                <p>Dear Customer,</p>
-                <br/>
-                <p>Thank you for your registration.  Below is a copy of the information that you have entered.</p>
-                <br/>
-                    <h1>Your Company Information</h1>
+                <p>Dear Customer,</p>                
+                <p>Thank you for your registration. Below is a copy of the information that you have entered.</p>                
+                <h1>Your Company Information</h1>
                 </head>
                 <body>
                     <table>                    
@@ -333,10 +341,8 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
                             <th>Date:</th>
                             <td><label>'.$formatDate.'</label></td>
                         </tr>
-                    </table>
-                    <br/>
-                    <p>Your account information is being reviewed.  Upon approval, we will send a confirmation email to you with login ID and password.</p>
-                    <br/>
+                    </table>                   
+                    <p>Your account information is being reviewed.  Upon approval, we will send a confirmation email to you with login ID and password.</p>                  
                     <p>Thank you.</p>
                 </body>
             </html>';
@@ -358,13 +364,12 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
 
     //Por último enviamos el email
     wp_mail( $to, $subject, $message, $headers);
-    wp_mail( $userEmail, $subject, $messageClient, $headers);
+    wp_mail( $userEmail, $subjectClient, $messageClient, $headers);
 
 
 }
 
 function redirect() {
-    //$url = get_permalink(get_page_by_title('Company Registered'));
     header('Location: '.get_site_url().'/company-registered/');
 }
 
