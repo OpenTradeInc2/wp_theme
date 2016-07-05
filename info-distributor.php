@@ -112,7 +112,7 @@ if(isset($_POST["actionCreatePublicUserDistributor"])) {
                             $IdDistributor = $wpdb->insert_id;
                             createPublicUser($_GET["email"],$_GET["email"],$_GET["first_name"],$_GET["last_name"],$IdDistributor);
                             $fullName = $_GET["first_name"]." ".$_GET["last_name"];
-                            sendEmail($current_user, $distributorName, $locationDistributor, $taxIdDistributor, $_GET["email"], $fullName, $_GET["email"]);
+                            sendEmail($current_user, $distributorName, $locationDistributor, $taxIdDistributor, $_GET["email"], $fullName, $_GET["email"],$city, $state, $zipcode, $country);
                             redirect();
 
                         }else{
@@ -212,7 +212,7 @@ function addPublicUserDistributor($userId, $distributorID){
     }
 }
 
-function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $userName, $userEmail){
+function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $userName, $userEmail, $city, $state, $zipcode, $country){
 
     $to = get_option('open-trade-emails');
 
@@ -224,6 +224,11 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
     $formatDate = date("Y-m-d h:i:s");
+
+    $countries = WC()->countries->get_countries();
+    $countryName = $countries[$country];
+    $states = WC()->countries->get_states($country);
+    $stateName = $states[$state];
 
     $message ='
             <html>
@@ -247,17 +252,21 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
                             <td>'.$tax.'</td>
                         </tr>
                         <tr>
-                            <th>User Name:</th>
-                            <td>'.$userLogin.'</td>
+                            <th>City:</th>
+                            <td>'.$city.'</td>
                         </tr>
                         <tr>
-                            <th>Name:</th>
-                            <td>'.$userName.'</td>
+                            <th>State:</th>
+                            <td>'.$stateName.'</td>
                         </tr>
                         <tr>
-                            <th>Email:</th>
-                            <td>'.$userEmail.'</td>
-                        </tr>                        
+                            <th>Zipcode:</th>
+                            <td>'.$zipcode.'</td>
+                        </tr> 
+                        <tr>
+                            <th>Country:</th>
+                            <td>'.$countryName.'</td>
+                        </tr> 
                     </table>                    
                     <br/>
                     <table>
@@ -273,8 +282,9 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
             <html>
                 <head>
                 <font FACE="impact" SIZE=6 COLOR="red">O</font><font FACE="impact" SIZE=6 COLOR="black">PENTRADE</font>
+                <p>Dear Customer,</p>
                 <br/>
-                <p>Thank you for your registration, Your account is pending approval, when your account is approved will receive a new email with access information.</p>
+                <p>Thank you for your registration.  Below is a copy of the information that you have entered.</p>
                 <br/>
                     <h1>Your Company Information</h1>
                 </head>
@@ -293,17 +303,29 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
                             <td>'.$tax.'</td>
                         </tr>
                         <tr>
+                            <th>City:</th>
+                            <td>'.$city.'</td>
+                        </tr>
+                        <tr>
+                            <th>State:</th>
+                            <td>'.$stateName.'</td>
+                        </tr>
+                        <tr>
+                            <th>Zipcode:</th>
+                            <td>'.$zipcode.'</td>
+                        </tr> 
+                        <tr>
+                            <th>Country:</th>
+                            <td>'.$countryName.'</td>
+                        </tr> 
+                        <tr>
                             <th>User Name:</th>
-                            <td>'.$userLogin.'</td>
+                            <td>'.$userEmail.'</td>
                         </tr>
                         <tr>
                             <th>Name:</th>
                             <td>'.$userName.'</td>
-                        </tr>
-                        <tr>
-                            <th>Email:</th>
-                            <td>'.$userEmail.'</td>
-                        </tr>                        
+                        </tr>                       
                     </table>                    
                     <br/>
                     <table>
@@ -312,6 +334,10 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
                             <td><label>'.$formatDate.'</label></td>
                         </tr>
                     </table>
+                    <br/>
+                    <p>Your account information is being reviewed.  Upon approval, we will send a confirmation email to you with login ID and password.</p>
+                    <br/>
+                    <p>Thank you.</p>
                 </body>
             </html>';
 
@@ -327,7 +353,7 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
     }
 
     add_filter( 'wp_mail_from_name', function( $name ) {
-        return 'Opentradeinc';
+        return 'Opentrade';
     });
 
     //Por último enviamos el email
