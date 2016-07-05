@@ -173,7 +173,7 @@ get_registered_nav_menus();
                         <td></td>
                     </tr>
                     <tr>
-                        <td width="1%" valign="top"><input type="checkbox" id="cbxTermsConditions" onclick="checkboxValidation()"></td>
+                        <td width="1%" valign="top"><input type="checkbox" name="cbxTermsConditions" id="cbxTermsConditions"></td>
                         <td valign="top">
                             I acknowledge that I have read and agree to the Grainger <font style="font-weight: bold;">Terms of Sale</font> and <font style="font-weight: bold;">Terms of Access</font>, and understand
                                 that information I submit will be used as described on this page and in the Grainger <font style="font-weight: bold;">Privacy Policy.</font> 
@@ -182,9 +182,10 @@ get_registered_nav_menus();
                 </table>
             </div>
             <br/>
-            <table id="tbRegister" align="center" style="visibility: hidden;">
+            <table id="tbRegister" align="center">
                 <tr>
                     <td align="center"><input id="doAction" class="gmw-submit gmw-submit-1" value="Register" type="submit" name="actionCreatePublicUserDistributor"></td>
+                    <td align="center"><input id="cancel" class="gmw-submit gmw-submit-1" value="Cancel" type="submit" name="cancelPublicUserDistributor"></td>
                 </tr>
             </table>
         </form>
@@ -242,6 +243,11 @@ if(isset($_POST["actionCreatePublicUserDistributor"])) {
         $_GET['message-error'] = $resultVerify;
         redirectErrors();
     }
+}
+
+if(isset($_POST["cancelPublicUserDistributor"])) {
+    $url = get_permalink(get_page_by_title('Homepage'));
+    header("Location:".$url);
 }
 
 function showMessage($message){
@@ -303,6 +309,10 @@ function verifyAllRequiredFields(){
 
     if(!isset($_POST["email"]) or $_POST["email"] === ""){
         $result .= "<li>Email is required!</li>";
+    }
+
+    if(!isset($_POST["cbxTermsConditions"]) or $_POST["cbxTermsConditions"] !== "on"){
+        $result .= "<li>The terms and conditions must be accepted!</li>";
     }
 
     return $result;
