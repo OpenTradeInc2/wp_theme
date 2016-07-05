@@ -36,15 +36,11 @@ $heading = esc_html( apply_filters( 'woocommerce_product_description_heading', e
 				<th>Packaging Unit</th>
 				<td><p><?php echo isa_woo_get_one_pa('Packaging Unit');   ?></p></td>
 			</tr>
-			<tr class="alt">
-				<th>Price / lb</th>
-				<td><p><?php echo isa_woo_get_one_pa('Price / lb');   ?></p></td>
+			<tr class="">
+				<th>Packaging Measure</th>
+				<td><p><?php echo isa_woo_get_one_pa('Packaging Measure');   ?></p></td>
 			</tr>
-				
 		</tbody></table>
-
-
-		
 	
 </div>
 
