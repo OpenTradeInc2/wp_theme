@@ -10,7 +10,7 @@ get_registered_nav_menus();
 ?>
     <div class="" style="width:100%;">
         <h1 class="entry-title">Register your Company</h1>
-        <p>if you want to be part of our distributors, please enter the following information and soon we will contact you.</p>
+        <p>Please register your company and user information below</p>
         <?php
         if (isset($_GET['message-error'])) {
             ?>
@@ -44,16 +44,13 @@ get_registered_nav_menus();
             <table align="center">
                 <tr>
                     <td>
-                        <input type="radio" name="RegistrationType" value="Registrer ship to customer">Registrer ship to customer
+                        <input type="radio" name="RegistrationType" value="End User">End User
                     </td>
                     <td>
-                        <input type="radio" name="RegistrationType" value="Registrer bill to customer">Registrer bill to customer
+                        <input type="radio" name="RegistrationType" value="Distributor">Distributor
                     </td>
                     <td>
-                        <input type="radio" name="RegistrationType" value="Registrer corporate customer">Registrer corporate customer
-                    </td>
-                    <td>
-                        <input type="radio" name="RegistrationType" value="Registrer aggregate account customer">Registrer aggregate account customer
+                        <input type="radio" name="RegistrationType" value="Broker">Broker
                     </td>
                 </tr>
             </table>
@@ -169,15 +166,39 @@ get_registered_nav_menus();
 
             </table>
             <br/>
-            <table align="center">
+            <div style="width: 600px; height: 150px; margin-left: 25%; background-color: #f8f8f8; border-width: 2px; border-color: #1e73be; border-style: solid;">
+                <table align="center">
+                    <tr>
+                        <td colspan="2" align="center"><h1 style="font-size: 20px;">*TERMS OF REGISTRATION</h1></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td width="1%" valign="top"><input type="checkbox" id="cbxTermsConditions" onclick="checkboxValidation()"></td>
+                        <td valign="top">
+                            I ackknowledge that I have read and agree to the Grainger <b>Terms of Sale</b> and <b>Termo of Access</b>, and understand
+                                that information I submit will be used as described on this page and in the Grainger <b>Privacy Policy.</b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br/>
+            <table id="tbRegister" align="center" style="visibility: hidden;">
                 <tr>
                     <td align="center"><input id="doAction" class="gmw-submit gmw-submit-1" value="Register" type="submit" name="actionCreatePublicUserDistributor"></td>
                 </tr>
             </table>
-
         </form>
     </div>
-
+    <script language="JavaScript">
+        function checkboxValidation() {
+            var check = document.getElementById("cbxTermsConditions");
+            if(check.checked){
+                document.getElementById("tbRegister").style.visibility = "visible";
+            }else{
+                document.getElementById("tbRegister").style.visibility = "hidden";
+            }
+        }
+    </script>
 <?php
 do_action( 'avada_after_content' );
 get_footer();
