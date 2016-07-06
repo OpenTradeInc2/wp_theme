@@ -30,8 +30,8 @@ do_action( 'woocommerce_before_cart' );
 				<th class="product-name" style="width: 25%!important;"><?php _e( 'Product', 'woocommerce' ); ?></th>
 				<th class="product-quantity"><?php _e( 'Quantity', 'woocommerce' ); ?></th>
 				<th class="product-price-lb"><?php _e( 'Price/lb', 'woocommerce' ); ?></th>
-				<th class="product-lbs"><?php _e( 'Lbs', 'woocommerce' ); ?></th>
-				<th class="product-price"><?php _e( 'Price', 'woocommerce' ); ?></th>				
+				<th class="product-lbs"><?php _e( 'Lbs/Unit', 'woocommerce' ); ?></th>
+				<!--<th class="product-price"><?php _e( 'Price', 'woocommerce' ); ?></th>-->
 				<th class="product-subtotal"><?php _e( 'Total', 'woocommerce' ); ?></th>
 				<th class="product-offer" style="text-align: center!important;"><?php _e( 'Offer', 'woocommerce' ); ?></th>
 				<th class="product-remove">&nbsp;</th>
@@ -113,15 +113,16 @@ do_action( 'woocommerce_before_cart' );
 						<td class="product-price-lb">
 							<?php echo '$'.$price_lb ?>
 						</td>
+
 						<td class="product-lbs">
 							<?php echo $weight_lb ?>
 						</td>
 
-						<td class="product-price">
+						<!--<td class="product-price">
 							<?php
 							echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
 							?>
-						</td>
+						</td>-->
 
 						<td class="product-subtotal">
 							<?php
@@ -275,6 +276,82 @@ do_action( 'woocommerce_before_cart' );
 		<br>
 		<label for="file">Please select File:</label>
 		<input type="file" name="orderFile" id="orderFile" accept=".pdf" style="font-size: 12px!important;">
+		<br>
+		<br>
+		<div action="<?php echo esc_url( WC()->cart->get_cart_url() ); ?>" method="post">
+
+			<h2><span href="#" class="shipping-calculator-button"><?php _e( 'Enter ZIP Code', 'woocommerce' ); ?></span>
+			</h2>
+
+			<div class="avada-shipping-calculator-form">
+
+				<p class="form-row form-row-wide">
+					<select name="calc_shipping_country" id="calc_shipping_country" class="country_to_state" rel="calc_shipping_state">
+						<option value=""><?php _e( 'Select a country&hellip;', 'woocommerce' ); ?></option>
+						<?php
+						foreach( WC()->countries->get_shipping_countries() as $key => $value )
+							echo '<option value="' . esc_attr( $key ) . '"' . selected( WC()->customer->get_shipping_country(), esc_attr( $key ), false ) . '>' . esc_html( $value ) . '</option>';
+						?>
+					</select>
+				</p>
+
+				<div class="<?php if ( Avada()->settings->get( 'avada_styles_dropdowns' ) ): ?>avada-select-parent fusion-layout-column fusion-one-half fusion-spacing-yes<?php endif; ?>">
+					<?php
+					$current_cc = WC()->customer->get_shipping_country();
+					$current_r  = WC()->customer->get_shipping_state();
+					$states     = WC()->countries->get_states( $current_cc );
+
+					// Hidden Input
+					if ( is_array( $states ) && empty( $states ) ) {
+
+						?><input type="hidden" name="calc_shipping_state" id="calc_shipping_state" placeholder="<?php esc_attr_e( 'State / county', 'woocommerce' ); ?>" /><?php
+
+						// Dropdown Input
+					} elseif ( is_array( $states ) ) {
+
+						?><span>
+						<select name="calc_shipping_state" id="calc_shipping_state" placeholder="<?php esc_attr_e( 'State / county', 'woocommerce' ); ?>">
+							<option value=""><?php _e( 'Select a state&hellip;', 'woocommerce' ); ?></option>
+							<?php
+							foreach ( $states as $ckey => $cvalue )
+								echo '<option value="' . esc_attr( $ckey ) . '" ' . selected( $current_r, $ckey, false ) . '>' . __( esc_html( $cvalue ), 'woocommerce' ) .'</option>';
+							?>
+						</select>
+						</span><?php
+
+						// Standard Input
+					} else {
+
+						?><input type="text" class="input-text" value="<?php echo esc_attr( $current_r ); ?>" placeholder="<?php esc_attr_e( 'State / county', 'woocommerce' ); ?>" name="calc_shipping_state" id="calc_shipping_state" /><?php
+
+					}
+					?>
+				</div>
+
+				<?php if ( apply_filters( 'woocommerce_shipping_calculator_enable_city', false ) ) : ?>
+
+					<p class="form-row form-row-wide">
+						<input type="text" class="input-text" value="<?php echo esc_attr( WC()->customer->get_shipping_city() ); ?>" placeholder="<?php esc_attr_e( 'City', 'woocommerce' ); ?>" name="calc_shipping_city" id="calc_shipping_city" />
+					</p>
+
+				<?php endif; ?>
+
+				<?php if ( apply_filters( 'woocommerce_shipping_calculator_enable_postcode', true ) ) : ?>
+
+					<div class="form-row form-row-wide fusion-layout-column fusion-one-half fusion-spacing-yes fusion-column-last">
+						<input type="text" class="input-text" value="<?php echo esc_attr( WC()->customer->get_shipping_postcode() ); ?>" placeholder="<?php esc_attr_e( 'Postcode / ZIP', 'woocommerce' ); ?>" name="calc_shipping_postcode" id="calc_shipping_postcode" />
+					</div>
+
+				<?php endif; ?>
+
+				<p>
+					<button type="submit" name="calc_shipping" value="1" class="fusion-button button-default button-small button small default"><?php _e( 'Enter', 'woocommerce' ); ?></button>
+				</p>
+
+				<?php wp_nonce_field( 'woocommerce-cart' ); ?>
+			</div>
+		</div>
+
 		<?php do_action( 'woocommerce_after_cart_table' ); ?>
 
 		<div class="cart-totals-buttons">
@@ -290,9 +367,12 @@ do_action( 'woocommerce_before_cart' );
 		<?php do_action( 'woocommerce_cart_collaterals' ); ?>
 
 	</div>
+
 </form>
 
 </form>
+
+
 <?php do_action( 'woocommerce_after_cart' );
 
 if (isset($_POST['post-offer'])) {
@@ -533,56 +613,52 @@ if (isset($_POST['purchase-order'])) {
 
 	if ( is_user_logged_in() ) {
 		try {
-			if(verifyOfferValue() == true){
-				if(verifyZipcode() == true){
-					$current_user = wp_get_current_user();
-					$countries = WC()->countries->get_countries();
-					$country = $countries[$_POST["calc_shipping_country"]];
 
-					if(count($countries)>0){
-						$states = WC()->countries->get_states( $_POST["calc_shipping_country"]);
-						$stateName = $states[$_POST["calc_shipping_state"]];
-					}else{
-						$stateName = "";
-					}
+			if(verifyZipcode() == true){
+				$current_user = wp_get_current_user();
+				$countries = WC()->countries->get_countries();
+				$country = $countries[$_POST["calc_shipping_country"]];
 
-					$zipCode_Postal = $_POST["calc_shipping_postcode"];
-
-					$file = $_FILES['orderFile'];
-					$filename = $file['name'];
-					$fileType = pathinfo($filename, PATHINFO_EXTENSION);
-
-					if ($fileType != 'pdf') {
-						wc_add_notice('Invalid file type. Only pdf type are accepted.','error');
-						header("Refresh:0");
-					}
-
-					$formatDate = date("Ymdhis");
-					global $current_user;
-					$current_user = wp_get_current_user();
-
-					$target_dir = plugin_dir_path(__FILE__) . "uploads/";
-					$fullPatch = getFullPatch($target_dir, $file, $formatDate, $current_user);
-
-					if(uploadFile($file, $fullPatch)){
-						$productList = createPurchaseOrderDB($current_user, $formatDate, $filename, $fullPatch, $country, $stateName, $zipCode_Postal);
-						sendPurchaseOrderEmail($productList, $current_user, $formatDate,$fullPatch);
-						wc_add_notice( 'Order Created', 'success' );
-						WC()->cart->empty_cart();
-						redirectPurchaseOrder();
-					}else{
-						wc_add_notice('File was not uploaded.','error');
-						header("Refresh:0");
-					}
+				if(count($countries)>0){
+					$states = WC()->countries->get_states( $_POST["calc_shipping_country"]);
+					$stateName = $states[$_POST["calc_shipping_state"]];
 				}else{
-					wc_add_notice("The ZIP / Postcode is necessary",'error');
+					$stateName = "";
+				}
+
+				$zipCode_Postal = $_POST["calc_shipping_postcode"];
+
+				$file = $_FILES['orderFile'];
+				$filename = $file['name'];
+				$fileType = pathinfo($filename, PATHINFO_EXTENSION);
+
+				if ($fileType != 'pdf') {
+					wc_add_notice('Invalid file type. Only pdf type are accepted.','error');
 					header("Refresh:0");
 				}
 
+				$formatDate = date("Ymdhis");
+				global $current_user;
+				$current_user = wp_get_current_user();
+
+				$target_dir = plugin_dir_path(__FILE__) . "uploads/";
+				$fullPatch = getFullPatch($target_dir, $file, $formatDate, $current_user);
+
+				if(uploadFile($file, $fullPatch)){
+					$productList = createPurchaseOrderDB($current_user, $formatDate, $filename, $fullPatch, $country, $stateName, $zipCode_Postal);
+					sendPurchaseOrderEmail($productList, $current_user, $formatDate,$fullPatch);
+					wc_add_notice( 'Order Created', 'success' );
+					WC()->cart->empty_cart();
+					redirectPurchaseOrder();
+				}else{
+					wc_add_notice('File was not uploaded.','error');
+					header("Refresh:0");
+				}
 			}else{
-				wc_add_notice("Must be exists at least one offer",'error');
+				wc_add_notice("The ZIP / Postcode is necessary",'error');
 				header("Refresh:0");
 			}
+
 		}catch ( Exception $e ) {
 			if ( ! empty( $e ) ) {
 				wc_add_notice( $e->getMessage(), 'error' );
@@ -597,33 +673,28 @@ if (isset($_POST['purchase-order'])) {
 if (isset($_POST['request-information'])) {
 
 	if ( is_user_logged_in() ) {
-		if(verifyOfferValue()==true){
-			if(verifyZipcode()==true){
-				$current_user = wp_get_current_user();
-				$countries = WC()->countries->get_countries();
-				$country = $countries[$_POST["calc_shipping_country"]];
 
-				if(count($countries)>0){
-					$states = WC()->countries->get_states( $_POST["calc_shipping_country"]);
-					$stateName = $states[$_POST["calc_shipping_state"]];
-				}else{
-					$stateName = "";
-				}
+		if(verifyZipcode()==true){
+			$current_user = wp_get_current_user();
+			$countries = WC()->countries->get_countries();
+			$country = $countries[$_POST["calc_shipping_country"]];
 
-				$zipCode_Postal = $_POST["calc_shipping_postcode"];
-
-				$current_user = wp_get_current_user();
-				$formatDate = date("Ymdhis");
-				$productList = createRequestInformationDB($current_user, $formatDate, $country, $stateName, $zipCode_Postal);
-				sendRequestInformationEmail($productList, $current_user);
-				redirectRequestInformation();
+			if(count($countries)>0){
+				$states = WC()->countries->get_states( $_POST["calc_shipping_country"]);
+				$stateName = $states[$_POST["calc_shipping_state"]];
 			}else{
-				wc_add_notice("The ZIP / Postcode is necessary",'error');
-				header("Refresh:0");
+				$stateName = "";
 			}
 
+			$zipCode_Postal = $_POST["calc_shipping_postcode"];
+
+			$current_user = wp_get_current_user();
+			$formatDate = date("Ymdhis");
+			$productList = createRequestInformationDB($current_user, $formatDate, $country, $stateName, $zipCode_Postal);
+			sendRequestInformationEmail($productList, $current_user);
+			redirectRequestInformation();
 		}else{
-			wc_add_notice("Must be exists at least one offer",'error');
+			wc_add_notice("The ZIP / Postcode is necessary",'error');
 			header("Refresh:0");
 		}
 
@@ -958,7 +1029,7 @@ function sendPurchaseOrderEmail($productList, $current_user, $formatDate, $fullP
 
 function redirectPurchaseOrder() {
 	ob_start();
-	header('Location: '.get_site_url().'/purchase-order-created/');
+	header('Location: '.get_site_url().'/purchase-order-sent/');
 	ob_end_flush();
 	die();
 }

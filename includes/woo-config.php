@@ -689,8 +689,8 @@ function avada_woocommerce_header_add_to_cart_fragment( $fragments ) {
 add_action( 'woocommerce_single_product_summary', 'avada_woocommerce_single_product_summary_open', 1 );
 function avada_woocommerce_single_product_summary_open() {
 	echo '<div class="summary-container">';
-	
-	
+
+
 }
 
 add_action( 'woocommerce_single_product_summary', 'avada_woocommerce_single_product_summary_close', 100 );
@@ -841,7 +841,7 @@ function cart_shipping_calc() {
 
 	<div class="woocommerce-shipping-calculator" action="<?php echo esc_url( WC()->cart->get_cart_url() ); ?>" method="post">
 
-		<h2><span href="#" class="shipping-calculator-button"><?php _e( 'Calculate Shipping', 'woocommerce' ); ?></span>
+		<h2><span href="#" class="shipping-calculator-button"><?php _e( 'Enter ZIP Code', 'woocommerce' ); ?></span>
 		</h2>
 
 		<div class="avada-shipping-calculator-form">
@@ -906,7 +906,7 @@ function cart_shipping_calc() {
 			<?php endif; ?>
 
 			<p>
-				<button type="submit" name="calc_shipping" value="1" class="fusion-button button-default button-small button small default"><?php _e( 'Update Totals', 'woocommerce' ); ?></button>
+				<button type="submit" name="calc_shipping" value="1" class="fusion-button button-default button-small button small default"><?php _e( 'Enter', 'woocommerce' ); ?></button>
 			</p>
 
 			<?php wp_nonce_field( 'woocommerce-cart' ); ?>
@@ -931,7 +931,7 @@ function avada_woocommerce_cart_collaterals( $args ) {
 
 	<div class="shipping-coupon">
 
-		<?php echo cart_shipping_calc();
+		<?php 
 
 			if ( WC()->cart->coupons_enabled() ) {
 				?>
@@ -1356,11 +1356,11 @@ function avada_woocommerce_after_my_account( $args )
 			<label for="password_2"><?php _e( 'Confirm New Password', 'woocommerce' ); ?></label>
 			<input type="password" class="input-text" name="password_2" id="password_2" />
 		</p>
-		
+
 		<div class="clear"></div>
-		
+
 		<?php do_action( 'woocommerce_edit_account_form' ); ?>
-		
+
 		<p><input type="submit" class="fusion-button button-default button-medium button default medium alignright"
 		          name="save_account_details" value="<?php _e( 'Save changes', 'woocommerce' ); ?>"/></p>
 
