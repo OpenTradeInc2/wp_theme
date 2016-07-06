@@ -42,14 +42,14 @@ get_registered_nav_menus();
         -->
             <p style="background-color: #2b2b2b; font-size:15px; font-weight: bold;"><label style="color: white;">Step 1: Tells us which registration type describes you better</label></p>
             <table align="center">
-                <tr>
-                    <td>
+                <tr align="center">
+                    <td style="width: 250px;">
                         <input type="radio" name="RegistrationType" value="End User">End User
                     </td>
-                    <td>
+                    <td style="width: 250px;">
                         <input type="radio" name="RegistrationType" value="Distributor">Distributor
                     </td>
-                    <td>
+                    <td style="width: 250px;">
                         <input type="radio" name="RegistrationType" value="Broker">Broker
                     </td>
                 </tr>
@@ -175,8 +175,8 @@ get_registered_nav_menus();
                     <tr>
                         <td width="1%" valign="top"><input type="checkbox" name="cbxTermsConditions" id="cbxTermsConditions"></td>
                         <td valign="top">
-                            I acknowledge that I have read and agree to the Grainger <font style="font-weight: bold;">Terms of Sale</font> and <font style="font-weight: bold;">Terms of Access</font>, and understand
-                                that information I submit will be used as described on this page and in the Grainger <font style="font-weight: bold;">Privacy Policy.</font> 
+                            I acknowledge that I have read and agree to the Opentrade <font style="font-weight: bold;">Terms of Sale</font> and <font style="font-weight: bold;">Terms of Access</font>, and understand
+                                that information I submit will be used as described on this page and in the Opentrade <font style="font-weight: bold;">Privacy Policy.</font>
                         </td>
                     </tr>
                 </table>
@@ -190,16 +190,6 @@ get_registered_nav_menus();
             </table>
         </form>
     </div>
-    <script language="JavaScript">
-        function checkboxValidation() {
-            var check = document.getElementById("cbxTermsConditions");
-            if(check.checked){
-                document.getElementById("tbRegister").style.visibility = "visible";
-            }else{
-                document.getElementById("tbRegister").style.visibility = "hidden";
-            }
-        }
-    </script>
 <?php
 do_action( 'avada_after_content' );
 get_footer();
