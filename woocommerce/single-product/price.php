@@ -23,10 +23,10 @@ global $product;
 ?>
 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 	<?php
-	$price_lb = $product->get_attribute(15);
-	$price_kg = $product->get_attribute(16);
-	$weight_lb = $product->get_attribute(9);
-	$weight_kg = $product->get_attribute(10);
+	$price_lb = $product->get_attribute(16);
+	$price_kg = $product->get_attribute(17);
+	$weight_lb = $product->get_attribute(10);
+	$weight_kg = $product->get_attribute(11);
 
 	if($price_lb == null or $price_lb == ''){
 
