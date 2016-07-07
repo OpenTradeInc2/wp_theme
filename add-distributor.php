@@ -7,10 +7,13 @@ get_header();
 
 get_registered_nav_menus();
 
+$urlPrivacyNotice = get_site_url().'/privacy';
+$urlTermsService = get_site_url().'/tos';
+
 ?>
     <div class="" style="width:100%;">
         <h1 class="entry-title">Register your Company</h1>
-        <p>Please register your company and user information below</p>
+        <p>Please register your company and user information below.</p>
         <?php
         if (isset($_GET['message-error'])) {
             ?>
@@ -40,7 +43,7 @@ get_registered_nav_menus();
             </thead>
         </table>
         -->
-            <p style="background-color: #2b2b2b; font-size:15px; font-weight: bold;"><label style="color: white;">Step 1: Tells us which registration type describes you better</label></p>
+            <p style="background-color: #2b2b2b; font-size:15px; font-weight: bold;"><label style="color: white;">Step 1: Tells us which registration type describes you better.</label></p>
             <table align="center">
                 <tr align="center">
                     <td style="width: 250px;">
@@ -55,7 +58,7 @@ get_registered_nav_menus();
                 </tr>
             </table>
 
-            <p style="background-color: #2b2b2b; font-size:15px; font-weight: bold;"><label style="color: white;">Step 2: Tell us your address</label></p>
+            <p style="background-color: #2b2b2b; font-size:15px; font-weight: bold;"><label style="color: white;">Step 2: Tell us your address.</label></p>
             <table align="center" style="width: 50%;">
                 <tr>
                     <th style="width: 20%;">*Company Name:</th>
@@ -145,7 +148,7 @@ get_registered_nav_menus();
                 </tr>
             </table>
 
-            <p style="background-color: #2b2b2b; font-size:15px; font-weight: bold;"><label style="color: white;">Step 3: Tell us who you are</label></p>
+            <p style="background-color: #2b2b2b; font-size:15px; font-weight: bold;"><label style="color: white;">Step 3: Tell us who you are.</label></p>
             <table align="center" style="width: 50%;">
                 <tr>
                     <th style="width: 20%;">*Your First Name:</th>
@@ -156,7 +159,7 @@ get_registered_nav_menus();
                     <td><input type="text" name="last_name" class="gmw-address gmw-full-address gmw-address-1" value="<?php echo $_GET['last_name'];?>"></td>
                 </tr>
                 <tr>
-                    <th scope="row" style="width: 20%;"><label for="email">Email <span class="description">(required)</span></label></th>
+                    <th scope="row" style="width: 20%;"><label for="email">Email <span class="description">(required):</span></label></th>
                     <td><input name="email" id="email" type="email" class="input-text" value="<?php echo $_GET['email'];?>"></td>
                 </tr>
                 <tr>
@@ -175,8 +178,8 @@ get_registered_nav_menus();
                     <tr>
                         <td width="1%" valign="top"><input type="checkbox" name="cbxTermsConditions" id="cbxTermsConditions"></td>
                         <td valign="top">
-                            I acknowledge that I have read and agree to the Opentrade <font style="font-weight: bold;">Terms of Sale</font> and <font style="font-weight: bold;">Terms of Access</font>, and understand
-                                that information I submit will be used as described on this page and in the Opentrade <font style="font-weight: bold;">Privacy Policy.</font>
+                            I acknowledge that I have read and agree to the Opentrade <a href="<?php echo $urlTermsService;?>"><font style="font-weight: bold;">Terms of Service</font></a>, and understand
+                                that information I submit will be used as described on this page and in the Opentrade <a href="<?php echo $urlPrivacyNotice;?>"><font style="font-weight: bold;">Privacy Policy.</font></a>
                         </td>
                     </tr>
                 </table>
