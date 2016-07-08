@@ -107,7 +107,11 @@ if ( 0 === $woocommerce_loop['loop'] % $woocommerce_loop['columns'] ) {
 	 * @hooked woocommerce_template_loop_product_link_close - 5
 	 * @hooked woocommerce_template_loop_add_to_cart - 10
 	 */
-	do_action( 'woocommerce_after_shop_loop_item' );
 	?>
+	<div style="float: left!important; margin-left:20px!important; margin-top:150px!important;">
+		<?php
+		do_action( 'woocommerce_after_shop_loop_item' );
+		?>
+	</div>
 
  </li>
