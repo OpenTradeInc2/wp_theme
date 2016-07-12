@@ -41,9 +41,9 @@ if ( ! empty( $tabs ) ) : ?>
 				if (!$post->post_excerpt){
 			?>		
 					<li>
-						<a class="pdfbtn" href="#">TDS</a>
-						<a class="pdfbtn" href="#">MSDS</a>
-						<a class="pdfbtn" href="#">COA</a>
+						<p class="pdfbtn">TDS</p>
+						<p class="pdfbtn">MSDS</p>
+						<p class="pdfbtn">COA</p>
 					</li>
 			<?php } else {
 					$post_excerpt = $post->post_excerpt;

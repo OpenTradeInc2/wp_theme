@@ -905,7 +905,7 @@ add_filter( 'gform_enable_field_label_visibility_settings', '__return_true' );
 add_filter( 'woocommerce_loop_add_to_cart_link', 'quantity_inputs_for_woocommerce_loop_add_to_cart_link', 10, 2 );
 function quantity_inputs_for_woocommerce_loop_add_to_cart_link( $html, $product ) {
 	if ( $product && $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
-		$html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" style="float:right!important; margin-left:5px!important; margin-top:-150px!important;" method="post" enctype="multipart/form-data">';
+		$html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" style="float:right!important; margin-left:5px!important; margin-top:-120px!important;" method="post" enctype="multipart/form-data">';
 		$html .= '<div style="margin-left: 27px!important;">'.woocommerce_quantity_input( array(), $product, false ).'</div>';
 		$html .= '<button type="submit" style="padding: 11px 20px !important;border-radius: 2px;border-width:0px;border-style: solid;line-height: 21px;font-size: 18px;border-color: #ffffff;background: #ffbc41;color: #ffffff;text-align: left;font-family: \'Source Sans Pro\';font-weight: 600;letter-spacing: 0px;text-transform: uppercase;display: inline-block;position: relative;box-sizing: border-box;">' . esc_html( $product->add_to_cart_text() ) . '</button>';
 		$html .= '</form>';
