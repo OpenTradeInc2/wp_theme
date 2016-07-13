@@ -6,69 +6,71 @@ Template Name: Information Distributor
 get_header();
 get_registered_nav_menus();
 
+session_start();
 $countries = WC()->countries->get_shipping_countries();
-$country = $countries[$_GET["selectCountry"]];
+$country = $countries[$_SESSION["selectCountry"]];
 
-$states = WC()->countries->get_states($_GET["selectCountry"]);
+$states = WC()->countries->get_states($_SESSION["selectCountry"]);
 
 ?>
 <div id="content" class="" style="width:100%;">
-    <h1 class="entry-title">Distributor Information</h1>
+    <h1 class="entry-title">Confirm your registration information.</h1>
     <form name="checkout" method="post" class="checkout woocommerce-checkout" action="" enctype="multipart/form-data">
-    <table>
+    <table align="center">
         <tr>
-            <th>Registration Type:</th>
-            <td><?php echo $_GET["RegistrationType"]?></td>
+            <th style="width: 60%;">Registration Type:</th>
+            <td><?php echo $_SESSION["RegistrationType"]?></td>
         </tr>
         <tr>
-            <th>Company Name:</th>
-            <td><label id="lblCompanyName"><?php echo $_GET["nameDistributor"]?></label></td>
+            <th style="width: 60%;">Company Name:</th>
+            <td><label id="lblCompanyName"><?php echo $_SESSION["nameDistributor"]?></label></td>
         </tr>
         <tr>
-            <th>Address:</th>
-            <td><label id="lblAddress"><?php echo $_GET["locationDistributor"]?></label></td>
+            <th style="width: 60%;">Address:</th>
+            <td><label id="lblAddress"><?php echo $_SESSION["locationDistributor"]?></label></td>
         </tr>
         <tr>
-            <th>Tax Id:</th>
-            <td><label id="lblTaxId"><?php echo $_GET["taxIdDistributor"]?></label></td>
+            <th style="width: 60%;">Tax Id:</th>
+            <td><label id="lblTaxId"><?php echo $_SESSION["taxIdDistributor"]?></label></td>
         </tr>
         <tr>
-            <th>City:</th>
-            <td><label id="lblCity"><?php echo $_GET["city"]?></label></td>
+            <th style="width: 60%;">City:</th>
+            <td><label id="lblCity"><?php echo $_SESSION["city"]?></label></td>
         </tr>
         <tr>
-            <th>State:</th>
-            <td><label id="lblState"><?php echo $states[$_GET["selectState"]]?></label></td>
+            <th style="width: 60%;">State:</th>
+            <td><label id="lblState"><?php echo $states[$_SESSION["selectState"]]?></label></td>
         </tr>
         <tr>
-            <th>ZIP/Postal Code:</th>
-            <td><label id="lblZipcode"><?php echo $_GET["zip_postal"]?></label></td>
+            <th style="width: 60%;">ZIP/Postal Code:</th>
+            <td><label id="lblZipcode"><?php echo $_SESSION["zip_postal"]?></label></td>
         </tr>
         <tr>
-            <th>Country:</th>
-            <td><label id="lblCountry"><?php echo $countries[$_GET["selectCountry"]]?></label></td>
+            <th style="width: 60%;">Country:</th>
+            <td><label id="lblCountry"><?php echo $countries[$_SESSION["selectCountry"]]?></label></td>
         </tr>
         <tr>
-            <th>Your First Name:</th>
-            <td><label id="lblFirstName"><?php echo $_GET["first_name"]?></label></td>
+            <th style="width: 60%;">Your First Name:</th>
+            <td><label id="lblFirstName"><?php echo $_SESSION["first_name"]?></label></td>
         </tr>
         <tr>
-            <th>Your Last Name:</th>
-            <td><label id="lblLastName"><?php echo $_GET["last_name"]?></label></td>
+            <th style="width: 60%;">Your Last Name:</th>
+            <td><label id="lblLastName"><?php echo $_SESSION["last_name"]?></label></td>
         </tr>
         <tr>
-            <th>Email:</th>
-            <td><label id="lblEmail"><?php echo $_GET["email"]?></label></td>
+            <th style="width: 60%;">Email:</th>
+            <td><label id="lblEmail"><?php echo $_SESSION["email"]?></label></td>
         </tr>
         <tr>
-            <th>Your Job Tittle:</th>
-            <td><label id="lblJobTittle"><?php echo $_GET["tittle_job"]?></label></td>
+            <th style="width: 60%;">Your Job Tittle:</th>
+            <td><label id="lblJobTittle"><?php echo $_SESSION["tittle_job"]?></label></td>
         </tr>
     </table>
     <br/>
     <table align="center">
         <tr>
             <td align="center"><input id="doAction" class="gmw-submit gmw-submit-1" value="Register" type="submit" name="actionCreatePublicUserDistributor"></td>
+            <td align="center"><input id="doBack" class="gmw-submit gmw-submit-1" value="Cancel" type="submit" name="actionCreatePublicUserDistributorBack"></td>
         </tr>
     </table>
         </form>
@@ -81,61 +83,41 @@ get_footer();
 <?php
 
 if(isset($_POST["actionCreatePublicUserDistributor"])) {
-    if(isset($_GET["nameDistributor"]) and $_GET["nameDistributor"] !== ""){
+    if(isset($_SESSION["nameDistributor"]) and $_SESSION["nameDistributor"] !== ""){
 
         global $wpdb;
-        $distributorName = $_GET['nameDistributor'];
-        $locationDistributor = $_GET['locationDistributor'];
-        $taxIdDistributor =$_GET['taxIdDistributor'];
-        $city = $_GET['city'];
-        $state = $_GET['selectState'];
-        $zipcode = $_GET['zip_postal'];
-        $country = $_GET['selectCountry'];
+        $distributorName = $_SESSION['nameDistributor'];
+        $locationDistributor = $_SESSION['locationDistributor'];
+        $taxIdDistributor =$_SESSION['taxIdDistributor'];
+        $city = $_SESSION['city'];
+        $state = $_SESSION['selectState'];
+        $zipcode = $_SESSION['zip_postal'];
+        $country = $_SESSION['selectCountry'];
         $current_user = getCurrentUser();
 
         if($wpdb->check_connection()){
 
-            if(isset($_GET["email"]) and $_GET["email"] !== ""){
-                $userLogin = get_user_by('login', $_GET["email"]);
+            if(isset($_SESSION["email"]) and $_SESSION["email"] !== ""){
 
-                if(!$userLogin){
-                    if(isset($_GET["email"]) and $_GET["email"] !== ""){
-                        $email =email_exists($_GET["email"]);
-                        if(!$email){
+                $date = getFormatDate();
+                $wpdb->query("INSERT INTO `ot_custom_distributor`
+                (`distributor_name`, `location`,`tax_id`, `added_by`, `added_date`, `status`, `email_administrator`, `city`,`state`,`zipcode`,`country`)
+                VALUES
+                ('".$distributorName."', '".$locationDistributor."', '".$taxIdDistributor."', ".$current_user->ID.", '".$date."', 'pending-approval', '".$_POST["email"]."', '".$city."', '".$state."', '".$zipcode."', '".$country."');");
 
-                            $date = getFormatDate();
-                            $wpdb->query("INSERT INTO `ot_custom_distributor`
-                            (`distributor_name`, `location`,`tax_id`, `added_by`, `added_date`, `status`, `email_administrator`, `city`,`state`,`zipcode`,`country`)
-                            VALUES
-                            ('".$distributorName."', '".$locationDistributor."', '".$taxIdDistributor."', ".$current_user->ID.", '".$date."', 'pending-approval', '".$_POST["email"]."', '".$city."', '".$state."', '".$zipcode."', '".$country."');");
-
-                            $IdDistributor = $wpdb->insert_id;
-                            createPublicUser($_GET["email"],$_GET["email"],$_GET["first_name"],$_GET["last_name"],$IdDistributor);
-                            $fullName = $_GET["first_name"]." ".$_GET["last_name"];
-                            sendEmail($current_user, $distributorName, $locationDistributor, $taxIdDistributor, $_GET["email"], $fullName, $_GET["email"],$city, $state, $zipcode, $country);
-                            redirect();
-
-                        }else{
-                            showMessage("Email already exists!");
-                            header("Refresh:0");
-                        }
-                    }else{
-                        showMessage("Email is required!");
-                        header("Refresh:0");
-                    }
-                }else{
-                    showMessage("User Name already exists!");
-                    header("Refresh:0");
-                }
-            }else{
-                showMessage("Please set valid user name!");
-                header("Refresh:0");
+                $IdDistributor = $wpdb->insert_id;
+                createPublicUser($_SESSION["email"],$_SESSION["email"],$_SESSION["first_name"],$_SESSION["last_name"],$IdDistributor);
+                $fullName = $_SESSION["first_name"]." ".$_GET["last_name"];
+                sendEmail($current_user, $distributorName, $locationDistributor, $taxIdDistributor, $_SESSION["email"], $fullName, $_SESSION["email"],$city, $state, $zipcode, $country);
+                redirect();
             }
         }else{
             showMessage("ERROR Data Base!");
-            header("Refresh:0");
         }
     }
+}
+elseif (isset($_POST["actionCreatePublicUserDistributorBack"])){
+    redirectBack();
 }
 
 function showMessage($message){
@@ -370,7 +352,12 @@ function sendEmail($current_user, $companyName, $location, $tax, $userLogin, $us
 }
 
 function redirect() {
+    session_destroy();
     header('Location: '.get_site_url().'/company-registered/');
+}
+
+function redirectBack() {
+    header('Location: '.get_site_url().'/register/');
 }
 
 ?>
