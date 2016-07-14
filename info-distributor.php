@@ -103,7 +103,7 @@ if(isset($_POST["actionCreatePublicUserDistributor"])) {
                 $wpdb->query("INSERT INTO `ot_custom_distributor`
                 (`distributor_name`, `location`,`tax_id`, `added_by`, `added_date`, `status`, `email_administrator`, `city`,`state`,`zipcode`,`country`)
                 VALUES
-                ('".$distributorName."', '".$locationDistributor."', '".$taxIdDistributor."', ".$current_user->ID.", '".$date."', 'pending-approval', '".$_POST["email"]."', '".$city."', '".$state."', '".$zipcode."', '".$country."');");
+                ('".$distributorName."', '".$locationDistributor."', '".$taxIdDistributor."', ".$current_user->ID.", '".$date."', 'pending-approval', '".$_SESSION["email"]."', '".$city."', '".$state."', '".$zipcode."', '".$country."');");
 
                 $IdDistributor = $wpdb->insert_id;
                 createPublicUser($_SESSION["email"],$_SESSION["email"],$_SESSION["first_name"],$_SESSION["last_name"],$IdDistributor);
@@ -116,7 +116,8 @@ if(isset($_POST["actionCreatePublicUserDistributor"])) {
         }
     }
 }
-elseif (isset($_POST["actionCreatePublicUserDistributorBack"])){
+
+else if (isset($_POST["actionCreatePublicUserDistributorBack"])){
     redirectBack();
 }
 
@@ -161,8 +162,8 @@ function createPublicUser($userName, $email, $first_name, $lastName, $distributo
 function addPublicUserDistributor($userId, $distributorID){
     global $wpdb;
 
-    $regType = $_GET["RegistrationType"];
-    $tittle_job = $_GET["tittle_job"];
+    $regType = $_SESSION["RegistrationType"];
+    $tittle_job = $_SESSION["tittle_job"];
 
     if($wpdb->check_connection()){
 

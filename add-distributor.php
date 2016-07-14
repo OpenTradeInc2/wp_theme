@@ -376,6 +376,10 @@ function verifyAllRequiredFields(){
         $result .= "<li>The terms and conditions must be accepted!</li>";
     }
 
+    if(!isset($_POST["RegistrationType"]) or $_POST["RegistrationType"] === ""){
+        $result .= "<li>Please Select a Registration Type!</li>";
+    }
+
     $_SESSION['message-error'] = $result;
     return $result;
 }
