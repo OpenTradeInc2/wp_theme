@@ -10,7 +10,7 @@ get_registered_nav_menus();
 
 $urlPrivacyNotice = get_site_url().'/privacy';
 $urlTermsService = get_site_url().'/tos';
-$urlRegistration = get_site_url().'/register';
+$urlRegistration = get_site_url().'/registration';
 session_start();
 
 ?>

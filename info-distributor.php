@@ -357,7 +357,7 @@ function redirect() {
 }
 
 function redirectBack() {
-    header('Location: '.get_site_url().'/register/');
+    header('Location: '.get_site_url().'/registration/');
 }
 
 ?>
