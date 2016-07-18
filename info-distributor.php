@@ -16,64 +16,65 @@ $states = WC()->countries->get_states($_SESSION["selectCountry"]);
 <div id="content" class="" style="width:100%;">
     <h1 class="entry-title">Confirm your registration information.</h1>
     <form name="checkout" method="post" class="checkout woocommerce-checkout" action="" enctype="multipart/form-data">
-    <table align="center">
+    <table align="left">
         <tr>
-            <th style="width: 60%;">Registration Type:</th>
+            <th style="width: 40%;">Registration Type:</th>
             <td><?php echo $_SESSION["RegistrationType"]?></td>
         </tr>
         <tr>
-            <th style="width: 60%;">Company Name:</th>
+            <th style="width: 40%;">Company Name:</th>
             <td><label id="lblCompanyName"><?php echo $_SESSION["nameDistributor"]?></label></td>
         </tr>
         <tr>
-            <th style="width: 60%;">Address:</th>
+            <th style="width: 40%;">Address:</th>
             <td><label id="lblAddress"><?php echo $_SESSION["locationDistributor"]?></label></td>
         </tr>
         <tr>
-            <th style="width: 60%;">Tax Id:</th>
+            <th style="width: 40%;">Tax Id:</th>
             <td><label id="lblTaxId"><?php echo $_SESSION["taxIdDistributor"]?></label></td>
         </tr>
         <tr>
-            <th style="width: 60%;">City:</th>
+            <th style="width: 40%;">City:</th>
             <td><label id="lblCity"><?php echo $_SESSION["city"]?></label></td>
         </tr>
         <tr>
-            <th style="width: 60%;">State:</th>
+            <th style="width: 40%;">State:</th>
             <td><label id="lblState"><?php echo $states[$_SESSION["selectState"]]?></label></td>
         </tr>
         <tr>
-            <th style="width: 60%;">ZIP/Postal Code:</th>
+            <th style="width: 40%;">ZIP/Postal Code:</th>
             <td><label id="lblZipcode"><?php echo $_SESSION["zip_postal"]?></label></td>
         </tr>
         <tr>
-            <th style="width: 60%;">Country:</th>
+            <th style="width: 40%;">Country:</th>
             <td><label id="lblCountry"><?php echo $countries[$_SESSION["selectCountry"]]?></label></td>
         </tr>
         <tr>
-            <th style="width: 60%;">Your First Name:</th>
+            <th style="width: 40%;">Your First Name:</th>
             <td><label id="lblFirstName"><?php echo $_SESSION["first_name"]?></label></td>
         </tr>
         <tr>
-            <th style="width: 60%;">Your Last Name:</th>
+            <th style="width: 40%;">Your Last Name:</th>
             <td><label id="lblLastName"><?php echo $_SESSION["last_name"]?></label></td>
         </tr>
         <tr>
-            <th style="width: 60%;">Email:</th>
+            <th style="width: 40%;">Email:</th>
             <td><label id="lblEmail"><?php echo $_SESSION["email"]?></label></td>
         </tr>
         <tr>
-            <th style="width: 60%;">Your Job Tittle:</th>
+            <th style="width: 40%;">Your Job Tittle:</th>
             <td><label id="lblJobTittle"><?php echo $_SESSION["tittle_job"]?></label></td>
         </tr>
-    </table>
-    <br/>
-    <table align="center">
         <tr>
-            <td align="center"><input id="doAction" class="gmw-submit gmw-submit-1" value="Register" type="submit" name="actionCreatePublicUserDistributor"></td>
-            <td align="center"><input id="doBack" class="gmw-submit gmw-submit-1" value="Cancel" type="submit" name="actionCreatePublicUserDistributorBack"></td>
+            <td><br></td>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td align="left"><input id="doAction" class="gmw-submit gmw-submit-1" value="Confirm" type="submit" name="actionCreatePublicUserDistributor"></td>
+            <td align="left"><input id="doBack" class="gmw-submit gmw-submit-1" value="Cancel" type="submit" name="actionCreatePublicUserDistributorBack"></td>
         </tr>
     </table>
-        </form>
+    </form>
 </div>
 <?php
 do_action( 'avada_after_content' );
