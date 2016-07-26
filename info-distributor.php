@@ -144,12 +144,16 @@ function createPublicUser($userName, $email, $first_name, $lastName, $distributo
     update_user_meta($user_id, 'first_name', $first_name);
     update_user_meta($user_id, 'last_name', $lastName);
 
-    $role =get_role( 'open-trade-contributor' );
+    if($_SESSION["RegistrationType"] == 'Distributor'){
+        $role = get_role( 'open-trade-contributor' );
 
-    if($role == null){
-        $newRole =get_role( 'administrator' );
-        add_role('open-trade-contributor', 'OT Role', $newRole->capabilities);
-        $role =get_role( 'open-trade-contributor' );
+        if($role == null){
+            $newRole =get_role( 'administrator' );
+            add_role('open-trade-contributor', 'OT Role', $newRole->capabilities);
+            $role =get_role( 'open-trade-contributor' );
+        }
+    } else {
+        $role =get_role( 'customer' );
     }
 
     $user = new WP_User( $user_id );
