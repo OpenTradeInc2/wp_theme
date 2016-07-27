@@ -860,7 +860,7 @@ function createPurchaseOrderDB($current_user,$formatDate, $filename, $fullPatch,
 	if($wpdb->check_connection()){
 
 		$cart = WC()->cart;
-		$totalAmount = $cart->total;
+		$totalAmount = 0;//$cart->total;
 
 		$wpdb->query("INSERT INTO `ot_custom_purchase_order`
 							(`user_id`,
@@ -875,7 +875,7 @@ function createPurchaseOrderDB($current_user,$formatDate, $filename, $fullPatch,
 							'".$formatDate."',						
 							".$current_user->ID.",
 							'".$formatDate."',							
-							".$cart->total.",
+							".$totalAmount.",
 							'".$filename."',
 							'".$fullPatch."');");
 
@@ -883,6 +883,7 @@ function createPurchaseOrderDB($current_user,$formatDate, $filename, $fullPatch,
 
 		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
 
+			$realQuantity = $_POST["cart"][$cart_item_key]["qty"];
 			$wpdb->query("INSERT INTO `ot_custom_product_purchase_order`
 								(`product_id`,
 								`purchase_order_id`,
@@ -892,7 +893,7 @@ function createPurchaseOrderDB($current_user,$formatDate, $filename, $fullPatch,
 								VALUES
 								(".$cart_item[product_id].",
 								".$orderId.",
-								".$cart_item[quantity].",
+								".$realQuantity.",
 								".$current_user->ID.",
 								'".$formatDate."');");
 
@@ -907,9 +908,13 @@ function createPurchaseOrderDB($current_user,$formatDate, $filename, $fullPatch,
 				}
 			}
 
-			$newProduct  = array( 'productID' => $cart_item[product_id], 'productDescription'=>$post->post_title, 'productQuantity'=>$cart_item[quantity], 'productPrice'=>$data->price, 'orderId'=>$orderId, 'totalAmount'=>$totalAmount, 'distributorName'=>$distributorName,'country'=> $country, 'state'=>$state, 'zipcode'=>$zipcode);
+			$totalAmount = $totalAmount + ($realQuantity * $data->price);
+
+			$newProduct  = array( 'productID' => $cart_item[product_id], 'productDescription'=>$post->post_title, 'productQuantity'=>$realQuantity, 'productPrice'=>$data->price, 'orderId'=>$orderId, 'totalAmount'=>$totalAmount, 'distributorName'=>$distributorName,'country'=> $country, 'state'=>$state, 'zipcode'=>$zipcode);
 			array_push($productList,$newProduct);
 		}
+
+		$wpdb->query("update ot_custom_purchase_order set total_amount = ".$totalAmount." where purchase_order_id = ".$orderId.";");
 	}
 	return $productList;
 }
