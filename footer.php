@@ -125,7 +125,20 @@
 			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/assets/js/respond.js"></script>
 		<![endif]-->
 
-		
+		<script>
+                 	$(document).ready(function(){
+    				$('#gmw-checkbox-id-31').attr('checked', false);
+				$('#gmw-checkbox-id-34').attr('checked', false);
+				$('#gmw-checkbox-id-36').attr('checked', false);
+				$('#gmw-checkbox-id-37').attr('checked', false);
+				$('#gmw-checkbox-id-39').attr('checked', false);
+				$('#gmw-checkbox-id-41').attr('checked', false);
+				$('#gmw-checkbox-id-42').attr('checked', false);
+				$('#gmw-checkbox-id-43').attr('checked', false);
+				
+
+			});
+		</script>
 		<script type="text/javascript">
 
     				<?php if (isset($_GET['gmw_distance'])) { ?>
@@ -138,10 +151,18 @@
 			
 			document.getElementById("range").innerHTML=<?php if (isset($_GET["gmw_distance"])) { echo (string)$_GET["gmw_distance"]; } else { echo "2500"; } ?>+" Miles";
 			document.getElementById("units").value=<?php if (isset($_GET["cf__stock"])) { echo $_GET["cf__stock"]; } else { echo "1"; } ?>;
+			
 			document.getElementById("pricee").value=<?php if (isset($_GET["cf__price"])) { echo $_GET["cf__price"][0]; } else { ?>0 <?php } ?>;
 			document.getElementById("priceee").value=<?php if (isset($_GET["cf__price"])) { echo $_GET["cf__price"][1]; } else { ?>5000 <?php } ?>;
 			
-
+			document.getElementById("gmw-checkbox-id-312").checked=<?php if (isset($_GET["tax_product_cat"][0])) { echo "true"; } else { echo "false"; } ?>;
+			document.getElementById("gmw-checkbox-id-342").checked=<?php if (isset($_GET["tax_product_cat"][1])) { echo "true"; } else { echo "false"; } ?>;
+			document.getElementById("gmw-checkbox-id-392").checked=<?php if (isset($_GET["tax_product_cat"][2])) { echo "true"; } else { echo "false"; } ?>;
+			document.getElementById("gmw-checkbox-id-422").checked=<?php if (isset($_GET["tax_product_cat"][3])) { echo "true"; } else { echo "false"; } ?>;
+			document.getElementById("gmw-checkbox-id-412").checked=<?php if (isset($_GET["tax_product_cat"][4])) { echo "true"; } else { echo "false"; } ?>;
+			document.getElementById("gmw-checkbox-id-362").checked=<?php if (isset($_GET["tax_product_cat"][5])) { echo "true"; } else { echo "false"; } ?>;
+			document.getElementById("gmw-checkbox-id-432").checked=<?php if (isset($_GET["tax_product_cat"][6])) { echo "true"; } else { echo "false"; } ?>;
+			
 			
 		</script>
 

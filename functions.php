@@ -18,78 +18,142 @@
 * WooCommerce: Show only one custom product attribute above Add-to-cart button on single product page.
 */
 function isa_woo_get_one_pa($desired_att){
- 
+
     // Edit below with the title of the attribute you wish to display
     //$desired_att = 'distributor’s name';
-  
+
     global $product;
     $attributes = $product->get_attributes();
-     
+
     if ( ! $attributes ) {
         return;
     }
-     
+
     $out = '';
-  
+
     foreach ( $attributes as $attribute ) {
-         
+
         if ( $attribute['is_taxonomy'] ) {
-         
+
             // sanitize the desired attribute into a taxonomy slug
             $tax_slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '_', $desired_att)));
-         
+
             // if this is desired att, get value and label
-             
+
             if ( $attribute['name'] == 'pa_' . $tax_slug ) {
-             
+
                 $terms = wp_get_post_terms( $product->id, $attribute['name'], 'all' );
-                 
+
                 // get the taxonomy
                 $tax = $terms[0]->taxonomy;
-                 
+
                 // get the tax object
                 $tax_object = get_taxonomy($tax);
-                 
+
                 // get tax label
                 if ( isset ($tax_object->labels->name) ) {
                     $tax_label = $tax_object->labels->name;
                 } elseif ( isset( $tax_object->label ) ) {
                     $tax_label = $tax_object->label;
                 }
-                 
+
                 foreach ( $terms as $term ) {
-      
+
                     //$out .= $tax_label . ': ';
                     $out .= $term->name . '<br />';
-                      
-                }           
-             
+
+                }
+
             } // our desired att
-             
+
         } else {
-         
+
             // for atts which are NOT registered as taxonomies
-             
+
             // if this is desired att, get value and label
             if ( $attribute['name'] == $desired_att ) {
                 //$out .= $attribute['name'] . ': ';
                 $out .= $attribute['value'];
             }
-        }       
-         
-     
+        }
+
+
     }
-     
+
     echo $out;
 }
 add_action('woocommerce_single_product_summary', 'isa_woo_get_one_pa');
+function pro_att($desired_att){
 
+    // Edit below with the title of the attribute you wish to display
+    //$desired_att = 'distributor’s name';
+
+    global $product;
+    $attributes = $product->get_attributes();
+
+    if ( ! $attributes ) {
+        return;
+    }
+
+    $out = '';
+
+    foreach ( $attributes as $attribute ) {
+
+        if ( $attribute['is_taxonomy'] ) {
+
+            // sanitize the desired attribute into a taxonomy slug
+            $tax_slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '_', $desired_att)));
+
+            // if this is desired att, get value and label
+
+            if ( $attribute['name'] == 'pa_' . $tax_slug ) {
+
+                $terms = wp_get_post_terms( $product->id, $attribute['name'], 'all' );
+
+                // get the taxonomy
+                $tax = $terms[0]->taxonomy;
+
+                // get the tax object
+                $tax_object = get_taxonomy($tax);
+
+                // get tax label
+                if ( isset ($tax_object->labels->name) ) {
+                    $tax_label = $tax_object->labels->name;
+                } elseif ( isset( $tax_object->label ) ) {
+                    $tax_label = $tax_object->label;
+                }
+
+                foreach ( $terms as $term ) {
+
+                    //$out .= $tax_label . ': ';
+                    $out .= $term->name . '<br />';
+
+                }
+
+            } // our desired att
+
+        } else {
+
+            // for atts which are NOT registered as taxonomies
+
+            // if this is desired att, get value and label
+            if ( $attribute['name'] == $desired_att ) {
+                //$out .= $attribute['name'] . ': ';
+                $out .= $attribute['value'];
+            }
+        }
+
+
+    }
+
+    return $out;
+}
 
 function wooc_extra_register_fields() {
 
        ?>
 
- 
+
 
        <p class="form-row form-row-first">
 
@@ -99,7 +163,7 @@ function wooc_extra_register_fields() {
 
        </p>
 
- 
+
 
        <p class="form-row form-row-last">
 
@@ -109,11 +173,11 @@ function wooc_extra_register_fields() {
 
        </p>
 
- 
+
 
        <div class="clear"></div>
 
- 
+
 
        <p class="form-row form-row-wide">
 
@@ -123,13 +187,13 @@ function wooc_extra_register_fields() {
 
        </p>
 
- 
+
 
        <?php
 
 }
 
- 
+
 
 add_action( 'woocommerce_register_form_start', 'wooc_extra_register_fields' );
 
@@ -905,7 +969,7 @@ add_filter( 'gform_enable_field_label_visibility_settings', '__return_true' );
 add_filter( 'woocommerce_loop_add_to_cart_link', 'quantity_inputs_for_woocommerce_loop_add_to_cart_link', 10, 2 );
 function quantity_inputs_for_woocommerce_loop_add_to_cart_link( $html, $product ) {
 	if ( $product && $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
-		$html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" style="float:right!important; margin-left:5px!important; margin-top:-120px!important;" method="post" enctype="multipart/form-data">';
+		$html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" style="float:right!important; margin-left:5px!important; margin-top:-110px!important;" method="post" enctype="multipart/form-data">';
 		$html .= '<div style="margin-left: 27px!important;">'.woocommerce_quantity_input( array(), $product, false ).'</div>';
 		$html .= '<button type="submit" style="padding: 11px 20px !important;border-radius: 2px;border-width:0px;border-style: solid;line-height: 21px;font-size: 18px;border-color: #ffffff;background: #ffbc41;color: #ffffff;text-align: left;font-family: \'Source Sans Pro\';font-weight: 600;letter-spacing: 0px;text-transform: uppercase;display: inline-block;position: relative;box-sizing: border-box;">' . esc_html( $product->add_to_cart_text() ) . '</button>';
 		$html .= '</form>';
@@ -916,8 +980,17 @@ function quantity_inputs_for_woocommerce_loop_add_to_cart_link( $html, $product 
 add_action( 'before_delete_post', 'my_func' );
 function my_func( $postid ){
  global $wpdb;
- 
+
  if($wpdb->check_connection()){
   $wpdb->query("DELETE FROM `ot_custom_product_post` WHERE `post_id` =".$postid.";");
  }
 }
+
+
+function gmw_modify_submit_text( $labels, $gmw ) {
+ 
+	$labels['search_form']['submit'] = 'Search';
+ 
+	return $labels;
+}
+add_filter( 'gmw_set_labels', 'gmw_modify_submit_text', 50, 2 );

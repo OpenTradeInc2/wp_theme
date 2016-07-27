@@ -5,7 +5,7 @@
 	<?php if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && ( false !== strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE' ) ) ) : ?>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<?php endif; ?>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<?php
