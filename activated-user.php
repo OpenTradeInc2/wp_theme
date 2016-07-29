@@ -23,7 +23,20 @@ if( is_page() && get_the_ID() == get_page_by_title('User Activated')->ID) {
             $user = get_user_by('ID', $user_id);
             $password = wp_generate_password( $length = 12, $include_standard_special_chars = false );
             wp_set_password( $password, $user_id );
-            wp_mail( $user->user_email, 'OpenTrade User Information', 'Welcome to Open Trade, Your user is : '.$user->nickname.' and your password is: '.$password  );
+            $message = "<html>
+                            <head>
+                                <font FACE=\"impact\" SIZE=6 COLOR=\"red\">O</font><font FACE=\"impact\" SIZE=6 COLOR=\"black\">PENTRADE</font>
+                                <br/>
+                                <h1>Open Trade Credentials</h1>
+                            </head>
+                            <body>
+                                Welcome to Open Trade, Your user is : ".$user->user_email." and your password is: ".$password."
+                            </body>
+                        </html>";
+
+            add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
+
+            wp_mail( $user->user_email, 'OpenTrade User Information', $message );
         }
     }
 }
