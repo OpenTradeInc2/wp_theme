@@ -651,7 +651,7 @@ if (isset($_POST['purchase-order'])) {
 					WC()->cart->empty_cart();
 					redirectPurchaseOrder();
 				}else{
-					wc_add_notice('File was not uploaded.','error');
+					wc_add_notice('File was not uploaded. '.$fullPatch,'error');
 					header("Refresh:0");
 				}
 			}else{
