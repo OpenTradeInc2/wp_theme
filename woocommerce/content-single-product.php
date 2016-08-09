@@ -18,6 +18,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+
+wc_print_notices();
+
 global $post, $product;
 
 $cat_count = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
@@ -190,10 +193,10 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	    
 	    <form method="post" enctype='multipart/form-data'>
 	<p class="price"><?php echo $product->get_price_by_measure_html(); ?></p>
-	<span class="quant">Quantity:</span>
 	<div class="variations_button">
-	<?php woocommerce_quantity_input( array( 'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( $_POST['quantity'] ) : 1 ) ); ?>
-		<button type="submit" class="single_add_to_cart_button fusion-button button button-default button-small alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+	<?php woocommerce_quantity_input( array( 'min_value' => 1, 'max_value' => $product->backorders_allowed() ? '' : $product->get_stock_quantity() ) ); ?>
+	<br>
+		<button type="submit" class="single_add_to_cart_button fusion-button button button-default button-small alt" style="width:93px!important; padding: 5px 5px !important;border-radius: 2px;border-width:0px;border-style: solid;line-height: 5px;font-size: 14px;border-color: #ffffff;background: #ffbc41;color: #ffffff; font-family: 'Source Sans Pro';font-weight: 900;letter-spacing: 0px;text-transform: uppercase;display: inline-block;position: relative;box-sizing: border-box;"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
 	<input type="hidden" name="add-to-cart" value="<?php echo absint( $product->id ); ?>" />
 	<input type="hidden" name="product_id" value="<?php echo absint( $product->id ); ?>" />
 	<input type="hidden" name="variation_id" class="variation_id" value="0" />
