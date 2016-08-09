@@ -176,7 +176,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
     </div>
     <div class="col-md-3">
 	    
-	    <div class="det_stock">
+	    <div class="det_stock" style="margin-top:5px; width:210px;" >
 		<?php echo "<strong>In Stock:</strong> ".$product->stock." Units"; ?>
 	</div>
 	  <div class="">
@@ -191,9 +191,9 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	    <form method="post" enctype='multipart/form-data'>
 	<p class="price"><?php echo $product->get_price_by_measure_html(); ?></p>
 	<span class="quant">Quantity:</span>
-	<div class="variations_button">		
+	<div class="variations_button">
 	<?php woocommerce_quantity_input( array( 'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( $_POST['quantity'] ) : 1 ) ); ?>
-	<button type="submit" class="single_add_to_cart_button fusion-button button button-default button-small alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>	
+		<button type="submit" class="single_add_to_cart_button fusion-button button button-default button-small alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
 	<input type="hidden" name="add-to-cart" value="<?php echo absint( $product->id ); ?>" />
 	<input type="hidden" name="product_id" value="<?php echo absint( $product->id ); ?>" />
 	<input type="hidden" name="variation_id" class="variation_id" value="0" />
