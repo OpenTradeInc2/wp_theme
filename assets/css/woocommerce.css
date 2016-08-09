@@ -461,7 +461,7 @@
   padding-top: 12px;
   margin: 0 15px;
   margin-top: 4px;
-  border-top: 1px solid #EBEAEA;
+  border-top: 0px solid #EBEAEA;
 }
 .star-rating {
   overflow: hidden;
