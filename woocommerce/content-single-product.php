@@ -88,7 +88,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	
 	
 	<div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3" style="margin-left:-100px;">
 	    
 	    <div id="slider" class="fusion-flexslider">
 		<ul class="slides">
@@ -107,7 +107,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 					$image_title 		= esc_attr( get_the_title( get_post_thumbnail_id() ) );
 					$image_link  		= wp_get_attachment_url( get_post_thumbnail_id() );
 					$image	   			= get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), array(
-						'title' => $image_title
+						'title' => $image_title, 'width' => 100
 						) );
 					$image_caption = get_post_field( 'post_excerpt', get_post_thumbnail_id() );
 
@@ -169,7 +169,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	    
 	    
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" style="width:260px;">
 	    
 	    <p><b>Packaging Weight (lb): </b><?php echo $weight_lb?></p>
 		<p><b>Packaging Weight (kg): </b><?php echo $weight_kg?></p>
@@ -177,11 +177,11 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 		<p><b>Price per kg :</b><?php echo ' $'.$price_kg.'/kg.'?></p>
 	    
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" style="margin-left:50px; width:280px;">
 	    
 	    <div class="det_stock" style="margin-top:5px; width:210px;" >
-		<?php echo "<strong>In Stock:</strong> ".$product->stock." Units"; ?>
-	</div>
+			<?php echo "<strong>In Stock:</strong> ".$product->stock." Units"; ?>
+		</div>
 	  <div class="">
 		  <strong>Warehouse Location: </strong><br>
 		   <?php echo isa_woo_get_one_pa('Warehouse Location Address');  ?>
@@ -189,7 +189,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 
 	    
     </div>
-    <div class="col-md-3 last">
+    <div class="col-md-3 last" style="width:130px; margin-left:50px;">
 	    
 	    <form method="post" enctype='multipart/form-data'>
 	<p class="price"><?php echo $product->get_price_by_measure_html(); ?></p>
