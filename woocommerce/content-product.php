@@ -87,7 +87,7 @@ if ( 0 === $woocommerce_loop['loop'] % $woocommerce_loop['columns'] ) {
 			 */
 		do_action( 'woocommerce_shop_loop_item_title' );
 			?>
-			<div class="pricy clearfix">
+			<div class="pricy clearfix" style="margin-left: 30%">
 				<?php
 				/**
 				 * woocommerce_after_shop_loop_item_title hook.
