@@ -182,7 +182,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	    <div class="det_stock" style="margin-top:5px; width:210px;" >
 			<?php echo "<strong>In Stock:</strong> ".$product->stock." Units"; ?>
 		</div>
-	  <div class="">
+	  <div class="" style="width:230px;">
 		  <strong>Warehouse Location: </strong><br>
 		   <?php echo isa_woo_get_one_pa('Warehouse Location Address');  ?>
 	  </div>
