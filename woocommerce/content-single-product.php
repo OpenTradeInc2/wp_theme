@@ -88,7 +88,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	
 	
 	<div class="row">
-    <div class="col-md-3" style="margin-left:-100px;">
+    <div class="col-md-3" style="margin-left:-117px; width: 24.5%; height: 110px;">
 	    
 	    <div id="slider" class="fusion-flexslider">
 		<ul class="slides">
@@ -170,12 +170,26 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	    
     </div>
     <div class="col-md-3" style="width:260px;">
-	    
-	    <p><b>Packaging Weight (lb): </b><?php echo $weight_lb?></p>
-		<p><b>Packaging Weight (kg): </b><?php echo $weight_kg?></p>
-		<p><b>Price per lb :</b><?php echo ' $'.$price_lb.'/lb.'?></p>
-		<p><b>Price per kg :</b><?php echo ' $'.$price_kg.'/kg.'?></p>
-	    
+		<table>
+			<tbody>
+			<tr >
+				<th style="font-weight: bold;">Packaging Weight (lb): </th>
+				<td><?php echo $weight_lb?>.</td>
+			</tr>
+			<tr >
+				<th style="font-weight: bold;">Packaging Weight (kg):  </th>
+				<td><?php echo $weight_kg?>.</td>
+			</tr>
+			<tr >
+				<th style="font-weight: bold;">Price per lb : </th>
+				<td><?php echo ' $'.$price_lb.'/lb.'?></td>
+			</tr>
+			<tr >
+				<th style="font-weight: bold;">Price per kg : </th>
+				<td><?php echo ' $'.$price_kg.'/kg.'?></td>
+			</tr>
+			</tbody>
+		</table>
     </div>
     <div class="col-md-3" style="margin-left:50px; width:280px;">
 	    
