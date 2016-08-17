@@ -88,7 +88,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	
 	
 	<div class="row">
-    <div class="col-md-3" style="margin-left:-117px; width: 24.5%; height: 110px;">
+    <div class="col-md-3" style="margin-left:-117px; width: 19%; height: 110px;">
 	    
 	    <div id="slider" class="fusion-flexslider">
 		<ul class="slides">
@@ -107,7 +107,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 					$image_title 		= esc_attr( get_the_title( get_post_thumbnail_id() ) );
 					$image_link  		= wp_get_attachment_url( get_post_thumbnail_id() );
 					$image	   			= get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), array(
-						'title' => $image_title, 'width' => 100
+						'title' => $image_title
 						) );
 					$image_caption = get_post_field( 'post_excerpt', get_post_thumbnail_id() );
 
@@ -170,32 +170,18 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	    
     </div>
     <div class="col-md-3" style="width:260px;">
-		<table>
-			<tbody>
-			<tr >
-				<th style="font-weight: bold;">Packaging Weight (lb): </th>
-				<td><?php echo $weight_lb?>.</td>
-			</tr>
-			<tr >
-				<th style="font-weight: bold;">Packaging Weight (kg):  </th>
-				<td><?php echo $weight_kg?>.</td>
-			</tr>
-			<tr >
-				<th style="font-weight: bold;">Price per lb : </th>
-				<td><?php echo ' $'.$price_lb.'/lb.'?></td>
-			</tr>
-			<tr >
-				<th style="font-weight: bold;">Price per kg : </th>
-				<td><?php echo ' $'.$price_kg.'/kg.'?></td>
-			</tr>
-			</tbody>
-		</table>
+	    
+	    <p><b>Packaging Weight (lb): </b><?php echo $weight_lb?></p>
+		<p><b>Packaging Weight (kg): </b><?php echo $weight_kg?></p>
+		<p><b>Price per lb :</b><?php echo ' $'.$price_lb.'/lb.'?></p>
+		<p><b>Price per kg :</b><?php echo ' $'.$price_kg.'/kg.'?></p>
+	    
     </div>
     <div class="col-md-3" style="margin-left:50px; width:280px;">
 	    
 	    <div class="det_stock" style="margin-top:5px; width:210px;" >
-			<?php echo "<strong>In Stock:</strong> ".$product->stock." Units"; ?>
-		</div>
+		<?php echo "<strong>In Stock:</strong> ".$product->stock." Units"; ?>
+	</div>
 	  <div class="" style="width:230px;">
 		  <strong>Warehouse Location: </strong><br>
 		   <?php echo isa_woo_get_one_pa('Warehouse Location Address');  ?>
