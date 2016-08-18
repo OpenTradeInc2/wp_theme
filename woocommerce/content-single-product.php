@@ -112,7 +112,8 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 					$image_caption = get_post_field( 'post_excerpt', get_post_thumbnail_id() );
 
 					// Avada Edit
-					echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<li><a href="%s" itemprop="image" class="woocommerce-main-image zoom" title="%s" data-rel="iLightbox' . $gallery . '" data-title="%s" data-caption="%s">%s</a></li>', $image_link, $image_title, $image_title, $image_caption, $image ), $post->ID );
+					//echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<li><a href="%s" itemprop="image" class="woocommerce-main-image zoom" title="%s" data-rel="iLightbox' . $gallery . '" data-title="%s" data-caption="%s">%s</a></li>', $image_link, $image_title, $image_title, $image_caption, $image ), $post->ID );
+					echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" itemprop="image" class="woocommerce-main-image zoom" title="%s" data-rel="prettyPhoto' . $gallery . '">%s</a>', $image_link, $image_caption, $image ), $post->ID );
 
 				} else {
 
@@ -157,8 +158,8 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 
 
 					// Avada Edit
-					echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<li><a href="%s" itemprop="image" class="woocommerce-main-image zoom" title="%s" data-rel="iLightbox' . $gallery . '" data-title="%s" data-caption="%s">%s</a></li>', $image_link, $image_title, $image_title, $image_caption, $image ), $attachment_id, $post->ID, $image_class );
-					//echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<a href="%s" class="%s" title="%s" data-rel="prettyPhoto[product-gallery]">%s</a>', $image_link, $image_class, $image_title, $image ), $attachment_id, $post->ID, $image_class );
+					//echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<li><a href="%s" itemprop="image" class="woocommerce-main-image zoom" title="%s" data-rel="iLightbox' . $gallery . '" data-title="%s" data-caption="%s">%s</a></li>', $image_link, $image_title, $image_title, $image_caption, $image ), $attachment_id, $post->ID, $image_class );
+					echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<a href="%s" class="%s" title="%s" data-rel="prettyPhoto[product-gallery]">%s</a>', $image_link, $image_class, $image_title, $image ), $attachment_id, $post->ID, $image_class );
 
 					$loop++;
 				}
@@ -182,11 +183,11 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 			</tr>
 			<tr >
 				<th style="font-weight: bold;">Price per lb : </th>
-				<td><?php echo ' $'.$price_lb.'/lb.'?></td>
+				<td><?php echo ' $'.$price_lb.'/lb'?></td>
 			</tr>
 			<tr >
 				<th style="font-weight: bold;">Price per kg : </th>
-				<td><?php echo ' $'.$price_kg.'/kg.'?></td>
+				<td><?php echo ' $'.$price_kg.'/kg'?></td>
 			</tr>
 			</tbody>
 		</table>
