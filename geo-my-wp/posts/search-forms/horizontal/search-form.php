@@ -31,7 +31,9 @@
 		<?php do_action( 'gmw_search_form_before_address', $gmw ); ?>
 		<div id="gmw-address-field-wrapper-1" class="gmw-address-field-wrapper gmw-address-field-wrapper-4 "><input type="text" name="gmw_keywords" id="gmw-address-2" autocomplete="off" class="gmw-address gmw-full-address gmw-address-1  " value="<?php if (isset($_GET["gmw_keywords"])) { echo $_GET["gmw_keywords"]; } ?>" placeholder="SKU Description and/or CAS Number..."><div class="gmw-locator-btn-wrapper gmw-locator-btn-within-wrapper"></div></div>
 		
-			<div id="gmw-address-field-wrapper-1" class="gmw-address-field-wrapper gmw-address-field-wrapper-2 "><input type="text" name="pweight" id="gmw-address-2" autocomplete="off" class="gmw-address gmw-full-address gmw-address-1  " value="<?php if (isset($_GET["pweight"])) { echo $_GET["pweight"]; } ?>" placeholder="Units Needed"><div class="gmw-locator-btn-wrapper gmw-locator-btn-within-wrapper"></div></div>
+			<div id="gmw-address-field-wrapper-1" class="gmw-address-field-wrapper gmw-address-field-wrapper-2 ">
+				
+				<input type="text" name="pweight" id="gmw-address-2222" autocomplete="off" class="gmw-address gmw-full-address gmw-address-1" oninput="copycont()"  value="<?php if (isset($_GET["pweight"])) { echo $_GET["pweight"]; } ?>" placeholder="Units Needed"><div class="gmw-locator-btn-wrapper gmw-locator-btn-within-wrapper"></div></div>
 			
 			
 			<div id="gmw-address-field-wrapper-1" class="gmw-address-field-wrapper gmw-address-field-wrapper-3 ">

@@ -18,27 +18,16 @@
  * Once the template folder is in the theme's folder you will be able to choose it when editing the posts locator form.
  * It will show in the "Search results" dropdown menu as "Custom: clean".
  */
- 
- wc_print_notices();
 ?>
-
-<script type="text/javascript">
-function copycont() {
-
-document.getElementById("units").value = document.getElementById("gmw-address-2222").value;
-
-
-}
-</script>
 <!--  Main results wrapper - wraps the paginations, map and results -->
 <div class="gmw-results-wrapper gmw-results-wrapper-<?php echo $gmw['ID']; ?> gmw-pt-results-wrapper">
 
 	<?php do_action( 'gmw_search_results_start' , $gmw, $post ); ?>
 
-	<!-- results count 
+	<!-- results count -->
 	<div class="gmw-results-count">
 		<span><?php gmw_results_message( $gmw, false ); ?></span>
-	</div> -->
+	</div>
 
 	<?php do_action( 'gmw_search_results_before_top_pagination' , $gmw, $post ); ?>
 
@@ -63,31 +52,8 @@ document.getElementById("units").value = document.getElementById("gmw-address-22
 
 		<!--  this is where wp_query loop begins -->
 		<?php while ( $gmw_query->have_posts() ) : $gmw_query->the_post(); ?>
-			<?php  get_product(); 
-				
-				
-				if (isset($_GET["unitt"]) && ($_GET["unitt"] == "lbs")) {
-					$pack = pro_att('Packaging Weight (lb)');
-					
-				} else {
-					$pack = pro_att('Packaging Weight (kg)');
-					
-				}
-				
-				$xx = get_post_meta( get_the_ID(), '_stock', true );
-				$xx = $xx * $pack;	
-					
-					
-				
-				
-				if (empty($_GET["pweight"]) || (isset($_GET["pweight"]) && ($_GET["pweight"] <= $xx) )  ) { 
-					
-					
-					 ?>
-				
-				
-				
-							<!--  single results wrapper  -->
+
+			<!--  single results wrapper  -->
 			<?php $featured = ( !empty( $post->feature ) ) ? 'gmw-featured-post' : ''; ?>
 
 			<div id="post-<?php the_ID(); ?>" <?php post_class( 'wppl-single-result '.$featured ); ?>>
@@ -154,26 +120,19 @@ document.getElementById("units").value = document.getElementById("gmw-address-22
 		    				</div>
 		    			<?php } ?>
 		    					<?php if (gmw_get_distance_to_location($post, $gmw )) { ?>
-								<div class="dist" style="width: 220px!important;"><?php gmw_driving_distance( $post, $gmw, false ); ?></div><br><br>
-								<?php } ?>
-					<div style="position:absolute; top:2px; right: 10px;; text-align: center!important;">
-						<?php do_action( 'woocommerce_after_shop_loop_item_title' ); ?>
-						<div style="margin-top: -7px!important;"><?php do_action( 'woocommerce_after_shop_loop_item' ); ?></div>
-					</div>
+								<div class="dist" style="width: 220px!important;"><?php gmw_driving_distance( $post, $gmw, false ); ?></div>
+								<?php } ?>							
+
+		    			<?php do_action( 'woocommerce_after_shop_loop_item_title' ); ?>
+			    		<?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
+
+
 		    	</div> <!-- info end -->
 
 		    	<?php do_action( 'gmw_search_results_loop_item_end' , $gmw, $post ); ?>
 
 		    </div> <!--  single- wrapper ends -->
-						
-				<?php  } ?>
-			
-			
-			
-			
-			 
-			
-			
+
 		    <div class="clear"></div>
 
 		<?php endwhile; ?>

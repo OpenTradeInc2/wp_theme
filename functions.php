@@ -966,6 +966,17 @@ if ( 'true' == get_option( 'avada_imported_demo' ) ) {
 add_filter( 'gform_enable_field_label_visibility_settings', '__return_true' );
 // Omit closing PHP tag to avoid "Headers already sent" issues.
 
+add_filter( 'woocommerce_loop_add_to_cart_link', 'quantity_inputs_for_woocommerce_loop_add_to_cart_link', 10, 2 );
+function quantity_inputs_for_woocommerce_loop_add_to_cart_link( $html, $product ) {
+	if ( $product && $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
+		$html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" style="float:right!important; margin-left:5px!important;" method="post" enctype="multipart/form-data">';
+		$html .= '<div style="margin-left: 27px!important;">'.woocommerce_quantity_input( array( 'min_value' => 1, 'max_value' => $product->backorders_allowed() ? '' : $product->get_stock_quantity() ), $product, false ).'</div>';
+		$html .= '<button type="submit" style="margin-left: 28px!important; padding: 12px 5px !important;border-radius: 2px;border-width:0px;border-style: solid;line-height: 5px;font-size: 14px;border-color: #ffffff;background: #ffbc41;color: #ffffff;text-align: left;font-family: \'Source Sans Pro\';font-weight: 900;letter-spacing: 0px;text-transform: uppercase;display: inline-block;position: relative;box-sizing: border-box;">' . esc_html( $product->add_to_cart_text() ) . '</button>';
+		$html .= '</form>';
+	}
+	return $html;
+}
+
 add_action( 'before_delete_post', 'my_func' );
 function my_func( $postid ){
  global $wpdb;
@@ -983,14 +994,3 @@ function gmw_modify_submit_text( $labels, $gmw ) {
 	return $labels;
 }
 add_filter( 'gmw_set_labels', 'gmw_modify_submit_text', 50, 2 );
-
-add_filter( 'woocommerce_loop_add_to_cart_link', 'quantity_inputs_for_woocommerce_loop_add_to_cart_link', 10, 2 );
-function quantity_inputs_for_woocommerce_loop_add_to_cart_link( $html, $product ) {
-	if ( $product && $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
-		$html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" style="float:right!important; margin-left:5px!important;" method="post" enctype="multipart/form-data">';
-		$html .= '<div style="margin-left: 27px!important;">'.woocommerce_quantity_input( array( 'min_value' => 1, 'max_value' => $product->backorders_allowed() ? '' : $product->get_stock_quantity() ), $product, false ).'</div>';
-		$html .= '<button type="submit" style="margin-left: 28px!important; padding: 12px 5px !important;border-radius: 2px;border-width:0px;border-style: solid;line-height: 5px;font-size: 14px;border-color: #ffffff;background: #ffbc41;color: #ffffff;text-align: left;font-family: \'Source Sans Pro\';font-weight: 900;letter-spacing: 0px;text-transform: uppercase;display: inline-block;position: relative;box-sizing: border-box;">' . esc_html( $product->add_to_cart_text() ) . '</button>';
-		$html .= '</form>';
-	}
-	return $html;
-}
