@@ -88,7 +88,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	
 	
 	<div class="row">
-    <div class="col-md-3" style="margin-left:-65px; width: 19%; height: 110px;">
+    <div class="col-md-3" style="border-right: 0px; margin-left:-95px; margin-right: 30px; width: 19%; height: 110px; border-spacing: 150px 0px!important;">
 	    
 	    <div id="slider" class="fusion-flexslider">
 		<ul class="slides">
@@ -170,27 +170,19 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	    
 	    
     </div>
-    <div class="col-md-3" style="width:260px;">
+	<div class="col-md-3" style="border-left: 1px solid #DBE2EA; margin-left:0px; width:410px;">
 	    
-	    <p><b style="font-weight: bold;color: #000000;">Packaging Weight (lb): </b><?php echo $weight_lb?></p>
-		<p><b style="font-weight: bold;color: #000000;">Packaging Weight (kg): </b><?php echo $weight_kg?></p>
-		<p><b style="font-weight: bold;color: #000000;">Price per lb :</b><?php echo ' $'.$price_lb.'/lb'?></p>
-		<p><b style="font-weight: bold;color: #000000;">Price per kg :</b><?php echo ' $'.$price_kg.'/kg'?></p>
-	    
-    </div>
-    <div class="col-md-3" style="margin-left:50px; width:280px;">
-	    
-	    <div class="det_stock" style="margin-top:5px; width:210px;" >
+	    <div class="det_stock" style="margin-left: 80px;margin-top:5px; width:210px;" >
 		<?php echo "<strong>In Stock:</strong> ".$product->stock." Units"; ?>
 	</div>
-	  <div class="" style="width:230px;">
+	  <div class="" style="margin-left: 80px; width:230px;">
 		  <strong style="font-weight: bold;color: #000000;">Warehouse Location: </strong><br>
 		   <?php echo isa_woo_get_one_pa('Warehouse Location Address');  ?>
 	  </div>
 
 	    
     </div>
-    <div class="col-md-3 last" style="width:130px; margin-left:50px;">
+    <div class="col-md-3 last" style="width:250px; margin-left:40px;">
 	    
 	    <form method="post" enctype='multipart/form-data'>
 	<p class="price"><?php echo $product->get_price_by_measure_html(); ?></p>

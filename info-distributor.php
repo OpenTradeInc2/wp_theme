@@ -99,12 +99,16 @@ if(isset($_POST["actionCreatePublicUserDistributor"])) {
         if($wpdb->check_connection()){
 
             if(isset($_SESSION["email"]) and $_SESSION["email"] !== ""){
+                $type = '';
+                if($_SESSION["RegistrationType"] == 'Distributor'){
+                    $type = 'Distributor';
+                }
 
                 $date = getFormatDate();
                 $wpdb->query("INSERT INTO `ot_custom_distributor`
-                (`distributor_name`, `location`,`tax_id`, `added_by`, `added_date`, `status`, `email_administrator`, `city`,`state`,`zipcode`,`country`)
+                (`distributor_name`, `location`,`tax_id`, `added_by`, `added_date`, `status`, `email_administrator`, `city`,`state`,`zipcode`,`country`,`type`)
                 VALUES
-                ('".$distributorName."', '".$locationDistributor."', '".$taxIdDistributor."', ".$current_user->ID.", '".$date."', 'pending-approval', '".$_SESSION["email"]."', '".$city."', '".$state."', '".$zipcode."', '".$country."');");
+                ('".$distributorName."', '".$locationDistributor."', '".$taxIdDistributor."', ".$current_user->ID.", '".$date."', 'pending-approval', '".$_SESSION["email"]."', '".$city."', '".$state."', '".$zipcode."', '".$country."','".$type."');");
 
                 $IdDistributor = $wpdb->insert_id;
                 createPublicUser($_SESSION["email"],$_SESSION["email"],$_SESSION["first_name"],$_SESSION["last_name"],$IdDistributor);

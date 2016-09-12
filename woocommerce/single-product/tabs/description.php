@@ -18,16 +18,16 @@ $heading = esc_html( apply_filters( 'woocommerce_product_description_heading', e
 	<?php if ( $heading ): ?>
 	  <h3><?php echo $heading; ?></h3>
 	<?php endif; ?>
-		
 
-		<table class="shop_attributes">	
+
+		<table class="shop_attributes">
 		<tbody><tr class="">
-				<th>Distributor SKU Description</th>
+				<th>SKU Description</th>
 				<td><?php echo isa_woo_get_one_pa('Distributor SKU Description');   ?></td>
 			</tr>
-		
-		
-	
+
+
+
 			<tr class="alt">
 				<th>Packaging Type</th>
 				<td><p><?php echo isa_woo_get_one_pa('Packaging Type');   ?></p></td>
@@ -41,6 +41,6 @@ $heading = esc_html( apply_filters( 'woocommerce_product_description_heading', e
 				<td><p><?php echo isa_woo_get_one_pa('Packaging Measure');   ?></p></td>
 			</tr>
 		</tbody></table>
-	
+
 </div>
 
