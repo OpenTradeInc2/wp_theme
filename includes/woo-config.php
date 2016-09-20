@@ -802,11 +802,11 @@ function avada_woocommerce_before_cart_table( $args ) {
 	global $woocommerce;
 
 	$html = '<div class="woocommerce-content-box full-width clearfix">';
-
-	if ( $woocommerce->cart->get_cart_contents_count() == 1 ) {
-		$html .= '<h2>' . sprintf( __( 'You Have %d Item In Your Cart', 'Avada' ), $woocommerce->cart->get_cart_contents_count() ) . '</h2>';
+	$cart_contents = sizeof($woocommerce->cart->cart_contents);
+	if ( $cart_contents == 1 ) {
+		$html .= '<h2>' . sprintf( __( 'You Have %d Product In Your Cart', 'Avada' ), $cart_contents ) . '</h2>';
 	} else {
-		$html .= '<h2>' . sprintf( __( 'You Have %d Items In Your Cart', 'Avada' ), $woocommerce->cart->get_cart_contents_count() ) . '</h2>';
+		$html .= '<h2>' . sprintf( __( 'You Have %d Products In Your Cart', 'Avada' ), $cart_contents ) . '</h2>';
 	}
 
 	echo $html;
@@ -821,6 +821,14 @@ function avada_woocommerce_after_cart_table( $args ) {
 
 function woocommerce_cross_sell_display( $posts_per_page = 3, $columns = 3, $orderby = 'rand' ) {
 	wc_get_template( 'cart/cross-sells.php', array(
+		'posts_per_page' => $posts_per_page,
+		'orderby'        => $orderby,
+		'columns'        => $columns
+	) );
+}
+
+function woocommerce_cross_sell_display_OT( $posts_per_page = 3, $columns = 3, $orderby = 'rand' ) {
+	wc_get_template( 'cart/cross-sells_OT.php', array(
 		'posts_per_page' => $posts_per_page,
 		'orderby'        => $orderby,
 		'columns'        => $columns
@@ -931,7 +939,7 @@ function avada_woocommerce_cart_collaterals( $args ) {
 
 	<div class="shipping-coupon">
 
-		<?php 
+		<?php
 
 			if ( WC()->cart->coupons_enabled() ) {
 				?>
@@ -973,7 +981,7 @@ function avada_woocommerce_after_cart( $args ) {
 }
 
 remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display' );
-add_action( 'woocommerce_cart_collaterals', 'avada_woocommerce_cross_sell_display', 5 );
+//add_action( 'woocommerce_cart_collaterals', 'avada_woocommerce_cross_sell_display', 5 );
 function avada_woocommerce_cross_sell_display() {
 	global $product, $woocommerce_loop, $post;
 
@@ -986,6 +994,19 @@ function avada_woocommerce_cross_sell_display() {
 	$number_of_columns = Avada()->settings->get( 'woocommerce_related_columns' );
 
 	woocommerce_cross_sell_display( apply_filters( 'woocommerce_cross_sells_total', - 1 ), $number_of_columns );
+}
+function avada_woocommerce_cross_sell_display_OT() {
+	global $product, $woocommerce_loop, $post;
+
+	$crosssells = WC()->cart->get_cross_sells();
+
+	if ( sizeof( $crosssells ) == 0 ) {
+		return;
+	}
+
+	$number_of_columns = Avada()->settings->get( 'woocommerce_related_columns' );
+
+	woocommerce_cross_sell_display_OT( apply_filters( 'woocommerce_cross_sells_total', - 1 ), $number_of_columns );
 }
 
 /* end cart hooks */

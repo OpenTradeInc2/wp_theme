@@ -173,7 +173,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	<div class="col-md-3" style="border-left: 1px solid #DBE2EA; margin-left:0px; width:410px;">
 	    
 	    <div class="det_stock" style="margin-left: 80px;margin-top:5px; width:210px;" >
-		<?php echo "<strong>In Stock:</strong> ".$product->stock." Units"; ?>
+		<?php echo "<strong>In Stock:</strong> ".number_format($product->stock)." Units"; ?>
 	</div>
 	  <div class="" style="margin-left: 80px; width:230px;">
 		  <strong style="font-weight: bold;color: #000000;">Warehouse Location: </strong><br>

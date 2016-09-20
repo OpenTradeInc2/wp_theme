@@ -367,7 +367,7 @@ do_action( 'woocommerce_before_cart' );
 		<?php do_action( 'woocommerce_cart_collaterals' ); ?>
 
 	</div>
-
+	<?php echo avada_woocommerce_cross_sell_display_OT(); ?>
 </form>
 
 </form>
