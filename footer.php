@@ -164,11 +164,20 @@
 			document.getElementById("gmw-checkbox-id-432").checked=<?php if (isset($_GET["tax_product_cat"][6])) { echo "true"; } else { echo "false"; } ?>;
 			
 			function copycont() {
-  				
-    				document.getElementById("units").value = document.getElementById("gmw-address-2222").value;
-    				
-  				
+				document.getElementById("units").value = document.getElementById("gmw-address-2222").value;
 			}
+
+			function copycontbartoheaterunits() {
+				document.getElementById("gmw-address-2222").value = document.getElementById("units").value;
+			}
+			function copycontheatertobardistance() {
+				document.getElementById("dista").value = document.getElementById("dista_heater").value;
+				document.getElementById("range").innerHTML=document.getElementById("dista_heater").value+" miles";
+			}
+			function copycontbartoheaterdistance() {
+				document.getElementById("dista_heater").value = document.getElementById("dista").value;
+			}
+			
 		</script>
 
 		<script type="text/javascript">
