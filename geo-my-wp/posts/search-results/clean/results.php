@@ -23,12 +23,19 @@
 ?>
 
 <script type="text/javascript">
-function copycont() {
-
-document.getElementById("units").value = document.getElementById("gmw-address-2222").value;
-
-
-}
+	function copycont() {
+		document.getElementById("units").value = document.getElementById("gmw-address-2222").value;
+	}
+	function copycontbartoheaterunits() {
+		document.getElementById("gmw-address-2222").value = document.getElementById("units").value;
+	}
+	function copycontheatertobardistance() {
+		document.getElementById("dista").value = document.getElementById("dista_heater").value;
+		document.getElementById("range").innerHTML=document.getElementById("dista_heater").value+" miles";
+	}
+	function copycontbartoheaterdistance() {
+		document.getElementById("dista_heater").value = document.getElementById("dista").value;
+	}
 </script>
 <!--  Main results wrapper - wraps the paginations, map and results -->
 <div class="gmw-results-wrapper gmw-results-wrapper-<?php echo $gmw['ID']; ?> gmw-pt-results-wrapper">
