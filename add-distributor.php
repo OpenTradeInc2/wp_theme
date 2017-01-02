@@ -12,6 +12,7 @@ $urlPrivacyNotice = get_site_url().'/privacy';
 $urlTermsService = get_site_url().'/tos';
 $urlRegistration = get_site_url().'/registration';
 session_start();
+$errorMessage = '';
 
 ?>
     <div class="" style="width:100%;">
@@ -233,7 +234,7 @@ session_start();
                         <font face="impact" size="18px" color="red">WARNING!</font>
                     </div>
                     <div class="modal-body">
-                        <font face="impact" size="6px" color="black">We cannot register a duplicate user</font>
+                        <font face="impact" size="6px" color="black"><?php echo $errorMessage ?></font>
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-default gmw-submit-1" href="<?php echo $urlRegistration."?postback=1"?>">OK</a>
@@ -296,6 +297,7 @@ if(isset($_POST["actionCreatePublicUserDistributor"])) {
                     redirect();
                 }else{
                     // Llamado a la funcion Javascript para poder aplicar el bootstrap
+                    $errorMessage = '';
                     echo "<script>";
                     echo "clickerAnchor();";
                     echo "</script>";
